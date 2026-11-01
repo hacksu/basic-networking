@@ -20,7 +20,8 @@ Speaker prompt: ask who has used `ping` and who has configured a switch. Both gr
 Show the Catalyst 3560 series 48-port PoE switch and TP-Link 5-port Gigabit desktop switch. Both switch Ethernet;
 management adds visibility and configuration. Explain PoE as power for compatible endpoints over Ethernet.
 The GL.iNet AC1200 wireless travel router supplies the separate router/DHCP demonstration. Exact product IDs remain
-unconfirmed; the 3560 family includes multiple port speeds. Keep its multilayer routing capabilities out of the core demo.
+unconfirmed. This Catalyst has 48 copper 10/100 Fast Ethernet ports and four SFP slots without modules. Use a
+Fast Ethernet port for the TP-Link link. Keep multilayer routing capabilities out of the core demo.
 There is no physical hub in the listed equipment, so explain its behavior rather than claim to demonstrate one.
 Home routers and hotspots often combine routing, Wi-Fi, DHCP, NAT, and firewall functions in one box.
 
@@ -106,8 +107,8 @@ The offline lab uses static IPv4 configuration; its switches do not need to run 
 
 Compare medium, installation constraints, latency, upload/download capacity, and mobility without fixed speed claims.
 These describe access technologies, not alternatives to TCP/IP. Do not imply fiber service is always dedicated
-or symmetric. A 100 Mb/s Ethernet link can limit traffic crossing it regardless of the ISP connection. Check the
-actual Catalyst ports and negotiated speed; do not label the entire 3560 family as 10/100.
+or symmetric. The TP-Link-to-Catalyst copper link supports at most 100 Mb/s, despite the TP-Link's Gigabit ports.
+Check its negotiated speed; it may be lower. The Catalyst's SFP slots are unused because no modules are available.
 
 Use a hotspot as the conceptual example: laptop-to-hotspot Wi-Fi and hotspot-to-carrier cellular are different links.
 The GL.iNet travel router is not assumed to have a cellular modem; a separate hotspot would be optional upstream equipment.

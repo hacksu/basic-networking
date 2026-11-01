@@ -41,7 +41,8 @@ and DSL versus cable versus fiber versus cellular access. Use this hardware to c
 
 - TP-Link 5-port Gigabit desktop switch, used as the unmanaged switch in the lab.
 - GL.iNet AC1200 wireless travel router, used for DHCP and gateway inspection.
-- Cisco Catalyst 3560 series 48-port PoE switch, used for MAC-table inspection and optional port security.
+- Cisco Catalyst 3560 series PoE switch: 48 copper 10/100 Fast Ethernet ports and four SFP slots.
+  No SFP modules are available, so the demo uses copper ports for hosts and the inter-switch link.
 
 The earlier mobile hotspot is optional upstream equipment, not required by the updated demos.
 The GL.iNet is not assumed to contain a cellular modem.
@@ -54,11 +55,11 @@ hardware is confirmed. The core session fits 60 minutes including questions.
 The deck and speaker notes are in `templates/`, with shared assets in `static/`. The demo instructions assume Windows presenter
 commands, two Ethernet-capable hosts, and an isolated lab. Those hosts and any adapters still need confirming.
 The exact Catalyst product ID, software, console access, TP-Link model, and GL.iNet model remain unconfirmed.
-The 3560 family includes different port speeds. Inspect the label and negotiated links before claiming a rate.
+The copper ports support at most 100 Mb/s. Check the negotiated speed during rehearsal; the SFP slots remain unused.
 
 ## Before presenting
 
-- [ ] Identify the Catalyst product ID and software, and test console access and port speeds.
+- [ ] Identify the Catalyst product ID and software, test console access, and check negotiated copper link speeds.
 - [ ] Identify the GL.iNet and TP-Link model numbers; rehearse router mode and local DHCP on the GL.iNet.
 - [ ] Confirm two hosts, Ethernet adapters, cables, and presenter display arrangements.
 - [ ] Rehearse the offline demo and save backup output from the actual hardware.

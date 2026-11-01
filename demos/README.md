@@ -6,10 +6,11 @@ Confirmed inventory:
 
 - TP-Link 5-port Gigabit desktop switch, used as the unmanaged switch in this runbook.
 - GL.iNet AC1200 wireless travel router, used separately for local DHCP and gateway inspection.
-- Cisco Catalyst 3560 series 48-port PoE switch, used for managed switching and optional port security.
+- Cisco Catalyst 3560 series PoE switch: 48 copper 10/100 Fast Ethernet ports and four SFP slots.
+  No SFP modules are available. Use copper ports for every Catalyst connection in this demo.
 
-The 3560 family includes Fast Ethernet and Gigabit variants. Read the product ID and port status before assuming
-the access-port or uplink speed. Its multilayer capabilities depend on software/features and configuration;
+Each available Catalyst copper link supports at most 100 Mb/s, including the link to the TP-Link Gigabit switch.
+Check negotiated speed and duplex during rehearsal. Its multilayer capabilities depend on software/features and configuration;
 this session keeps the Catalyst in its switching role. PoE is a brief hardware explanation, not an additional demo.
 No PoE-powered endpoint has been confirmed. Power the travel router according to its own model's instructions.
 
@@ -36,7 +37,8 @@ Use the actual model's manual and CLI help before configuration. Do not paste co
    Keep backups private; configurations can contain credentials. Do not reset or erase the switch for the demo.
 3. Select three unused access ports in the same lab VLAN. Confirm they are forwarding and not trunk or aggregation
    members. Record their original settings before any changes. Existing port security can invalidate the demo.
-4. Label two host-facing ports and one uplink port. Interface names such as `FastEthernet0/1` are examples only.
+4. Label two host-facing Fast Ethernet ports and a third Fast Ethernet port for the TP-Link inter-switch link.
+   The SFP slots are unused. Interface names such as `FastEthernet0/1` still need checking against the console output.
 5. Start with host A and host B directly attached to two Catalyst ports. Keep the unmanaged switch disconnected.
 6. Record the hosts' original Ethernet settings, then configure these example static addresses through OS settings:
    A = `192.168.50.10/24`, B = `192.168.50.20/24`, with no gateway or DNS on the isolated Ethernet adapters.
