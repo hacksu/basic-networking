@@ -28,7 +28,7 @@ The NOTES link opens the presenter reference separately. For a static build, use
 Keep the entire `dist/` folder together, including `static/`, when copying it to another machine.
 
 The 22 main slides cover the scheduled hour, including live demos and questions. Three appendix slides cover
-optional port security, EtherChannel, and references. The five-minute hotspot segment can be replaced with
+optional port security, EtherChannel, and references. The five-minute travel-router segment can be replaced with
 rehearsed port security; appendices do not add time to the session.
 
 All presentation assets are local. Following external reference links requires internet access.
@@ -37,8 +37,14 @@ The ignored `docs/` folder contains local planning material and is not needed to
 ## Scope
 
 Cover TCP/IP and the OSI model, Ethernet and MAC addresses, IPv4 versus IPv6, switches versus hubs versus routers,
-and DSL versus cable versus fiber versus cellular access. Use a Cisco Catalyst 10/100 switch, an unmanaged switch,
-and a mobile hotspot to connect the concepts to physical equipment.
+and DSL versus cable versus fiber versus cellular access. Use this hardware to connect concepts to physical equipment:
+
+- TP-Link 5-port Gigabit desktop switch, used as the unmanaged switch in the lab.
+- GL.iNet AC1200 wireless travel router, used for DHCP and gateway inspection.
+- Cisco Catalyst 3560 series 48-port PoE switch, used for MAC-table inspection and optional port security.
+
+The earlier mobile hotspot is optional upstream equipment, not required by the updated demos.
+The GL.iNet is not assumed to contain a cellular modem.
 
 Port security is an optional replacement demo. EtherChannel is an optional conceptual extension until compatible
 hardware is confirmed. The core session fits 60 minutes including questions.
@@ -47,14 +53,16 @@ hardware is confirmed. The core session fits 60 minutes including questions.
 
 The deck and speaker notes are in `templates/`, with shared assets in `static/`. The demo instructions assume Windows presenter
 commands, two Ethernet-capable hosts, and an isolated lab. Those hosts and any adapters still need confirming.
-The exact Catalyst model, software, console access, and hotspot Ethernet capability are also unconfirmed.
+The exact Catalyst product ID, software, console access, TP-Link model, and GL.iNet model remain unconfirmed.
+The 3560 family includes different port speeds. Inspect the label and negotiated links before claiming a rate.
 
 ## Before presenting
 
-- [ ] Identify the Catalyst model and software, and test console access.
+- [ ] Identify the Catalyst product ID and software, and test console access and port speeds.
+- [ ] Identify the GL.iNet and TP-Link model numbers; rehearse router mode and local DHCP on the GL.iNet.
 - [ ] Confirm two hosts, Ethernet adapters, cables, and presenter display arrangements.
 - [ ] Rehearse the offline demo and save backup output from the actual hardware.
-- [ ] Decide whether the hotspot segment or port security will occupy the optional demo slot.
+- [ ] Decide whether travel-router inspection or port security will occupy the optional demo slot.
 - [ ] Rehearse to 53 minutes, leaving seven minutes for recap and questions.
 
 ## Template credit

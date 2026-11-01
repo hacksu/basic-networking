@@ -2,15 +2,27 @@
 
 ## Inventory and assumptions
 
-Available: one Cisco Catalyst 10/100 switch, one small unmanaged switch, and a mobile hotspot.
+Confirmed inventory:
+
+- TP-Link 5-port Gigabit desktop switch, used as the unmanaged switch in this runbook.
+- GL.iNet AC1200 wireless travel router, used separately for local DHCP and gateway inspection.
+- Cisco Catalyst 3560 series 48-port PoE switch, used for managed switching and optional port security.
+
+The 3560 family includes Fast Ethernet and Gigabit variants. Read the product ID and port status before assuming
+the access-port or uplink speed. Its multilayer capabilities depend on software/features and configuration;
+this session keeps the Catalyst in its switching role. PoE is a brief hardware explanation, not an additional demo.
+No PoE-powered endpoint has been confirmed. Power the travel router according to its own model's instructions.
 
 Still needed or unconfirmed:
 
 - Two hosts with Ethernet, including adapters if necessary.
 - Three Ethernet patch cables, plus a spare.
 - Catalyst console cable/adapter, terminal software, and authorized access.
-- Exact switch model, software, interface names, VLAN state, and supported commands.
-- Hotspot power, service, and Wi-Fi credentials. Ethernet capability is not assumed.
+- Exact Catalyst product ID, software, interface names, VLAN state, and supported commands.
+- TP-Link model number and confirmation of its unmanaged operation.
+- GL.iNet model number, firmware, router-mode settings, LAN subnet, DHCP state, power supply, and Wi-Fi credentials.
+- Optional upstream mobile hotspot and service, if internet access will be shown. The travel router is not assumed
+  to have a cellular modem or any particular upstream connection configured.
 - Projector readability for both the console and host terminal.
 
 Commands below are Windows host examples and common Cisco IOS forms, not verified device-specific instructions.
@@ -19,7 +31,8 @@ Use the actual model's manual and CLI help before configuration. Do not paste co
 ## Preflight
 
 1. Work on an isolated lab, disconnected from venue, campus, and production networks.
-2. Record `show version`, `show interfaces status`, `show vlan brief`, and the existing configuration if supported.
+2. Record `show version`, `show inventory`, `show interfaces status`, `show vlan brief`, and the existing configuration
+   using the commands supported by this IOS release. Check the chassis label if inventory output is unavailable.
    Keep backups private; configurations can contain credentials. Do not reset or erase the switch for the demo.
 3. Select three unused access ports in the same lab VLAN. Confirm they are forwarding and not trunk or aggregation
    members. Record their original settings before any changes. Existing port security can invalidate the demo.
@@ -103,20 +116,27 @@ ping with Ctrl+C. Recovery may take time while the link negotiates and the switc
 An ARP or MAC entry may remain cached after a failure. A table entry is learned state, not a real-time proof that
 the host is reachable. Tie the cable and link LEDs back to OSI layer 1.
 
-## Demo 2: hotspot and gateway (5 minutes)
+## Demo 2: travel router, DHCP, and gateway (5 minutes)
 
 1. Finish the wired demo before changing the presenter's connections.
-2. Join the hotspot over Wi-Fi on one host. Leave the offline wired topology separate.
-3. Run `ipconfig /all`. Inspect the Wi-Fi adapter's assigned addresses, gateway, and DNS servers.
-4. Run `route print` and identify the Wi-Fi default route. Explain that routes choose a path between interfaces.
-5. Optionally open an ordinary public webpage if service is working. Reachability is secondary to inspecting the path.
+2. Use the GL.iNet in router mode with local DHCP enabled, rehearsed before the session. Disconnect the demo host's
+   wired lab cable, set its Wi-Fi adapter to automatic addressing, and join the travel router's Wi-Fi.
+3. Run `ipconfig /all`. Inspect the actual Wi-Fi address, subnet mask, DHCP server, gateway, and DNS settings.
+   Do not assume a factory-default router address; use the configured subnet and observed gateway.
+4. Run `route print` and identify the default route through the GL.iNet. Show its LAN settings or DHCP lease list
+   in the model's administration interface if rehearsed. Avoid exposing Wi-Fi passwords or administration credentials.
+5. Explain that DHCP and a default route can exist with no working upstream internet connection. If a separate
+   upstream has been configured and verified, optionally open an ordinary webpage.
 
-The hotspot typically combines an access point, IP router, DHCP service, and IPv4 NAT; verify what this model
-actually does. Its carrier-facing connection is cellular. Do not assume it has Ethernet or bridge Wi-Fi to the lab
-through internet connection sharing. IPv6 availability depends on the device, carrier, and configuration.
+GL.iNet router mode supplies routing, local DHCP, NAT, and firewall functions. Access-point mode has a different
+role, so confirm the configured mode. The router's Wi-Fi link is not a cellular connection. A separate mobile
+hotspot could provide upstream access only through a method supported and rehearsed on the exact GL.iNet model.
+Leave the wired switch lab separate; do not bridge networks through host internet connection sharing.
+Inspecting a default route does not demonstrate a packet being forwarded across two networks.
 
-Fallback: show saved adapter and route output from this hotspot. Keep credentials and unnecessary personal
-information off screen. If service is unavailable, local addressing can still be discussed without claiming internet access.
+Fallback: show saved adapter and route output from this travel router. Keep unnecessary personal information off
+screen. Internet access is not required. Packet Tracer's ARP/ping walkthrough is another optional replacement for
+this five-minute slot if a topology has been prepared and rehearsed; it does not extend the hour.
 
 ## Optional replacement: port security (5 minutes)
 
@@ -157,8 +177,9 @@ settings to startup configuration. Consult the model-specific guide for secure a
 ## EtherChannel: discussion only with the current inventory
 
 A live bundle requires compatible aggregation support at both ends, consistent member configuration, and a
-rehearsed failure test. One managed switch and an unconfirmed unmanaged peer are insufficient to promise this.
-Use the appendix explanation. Do not configure parallel links as an experiment during the session.
+rehearsed failure test. The TP-Link and GL.iNet are not confirmed aggregation peers for the Catalyst.
+Use the appendix explanation or a separately prepared Packet Tracer topology with two compatible switches.
+Do not configure parallel physical links as an experiment during the session.
 
 ## Failure handling and cleanup
 

@@ -17,7 +17,10 @@ Speaker prompt: ask who has used `ping` and who has configured a switch. Both gr
 - An Ethernet switch learns source MAC addresses and forwards using destination MAC addresses within a VLAN.
 - A router forwards packets between IP networks using its routing table.
 
-Show the Catalyst and unmanaged switch. Both switch Ethernet; management adds visibility and configuration.
+Show the Catalyst 3560 series 48-port PoE switch and TP-Link 5-port Gigabit desktop switch. Both switch Ethernet;
+management adds visibility and configuration. Explain PoE as power for compatible endpoints over Ethernet.
+The GL.iNet AC1200 wireless travel router supplies the separate router/DHCP demonstration. Exact product IDs remain
+unconfirmed; the 3560 family includes multiple port speeds. Keep its multilayer routing capabilities out of the core demo.
 There is no physical hub in the listed equipment, so explain its behavior rather than claim to demonstrate one.
 Home routers and hotspots often combine routing, Wi-Fi, DHCP, NAT, and firewall functions in one box.
 
@@ -103,18 +106,22 @@ The offline lab uses static IPv4 configuration; its switches do not need to run 
 
 Compare medium, installation constraints, latency, upload/download capacity, and mobility without fixed speed claims.
 These describe access technologies, not alternatives to TCP/IP. Do not imply fiber service is always dedicated
-or symmetric. A 100 Mb/s Ethernet link can limit traffic crossing it regardless of the ISP connection.
+or symmetric. A 100 Mb/s Ethernet link can limit traffic crossing it regardless of the ISP connection. Check the
+actual Catalyst ports and negotiated speed; do not label the entire 3560 family as 10/100.
 
-Hold up the hotspot: laptop-to-hotspot Wi-Fi and hotspot-to-carrier cellular are different links.
+Use a hotspot as the conceptual example: laptop-to-hotspot Wi-Fi and hotspot-to-carrier cellular are different links.
+The GL.iNet travel router is not assumed to have a cellular modem; a separate hotspot would be optional upstream equipment.
 A modem or optical network terminal handles the access connection; a router handles IP forwarding, even when
 functions are combined in one device.
 
-## 11. Demo: inspect a hotspot connection (48:00-53:00)
+## 11. Demo: inspect the travel router (48:00-53:00)
 
-Use [demo 2](../demos/README.md#demo-2-hotspot-and-gateway-5-minutes), or replace it with the rehearsed port-security demo.
+Use [demo 2](../demos/README.md#demo-2-travel-router-dhcp-and-gateway-5-minutes), or replace it with the rehearsed
+port-security demo. A prepared Packet Tracer ARP/ping walkthrough can occupy the same slot instead.
 
 - Inspect the Wi-Fi adapter's address, prefix, gateway, and DNS settings.
-- Identify what the hotspot supplies and where the cellular connection begins.
+- Identify the address assigned by GL.iNet DHCP and the default route through its LAN gateway.
+- Explain why local DHCP and a gateway do not prove an upstream internet connection exists.
 - Compare with the isolated wired lab, which worked without an internet gateway.
 
 No live speed test is required. It would measure this setup at this moment, not rank all access technologies.
@@ -136,5 +143,6 @@ Combine compatible physical links into a logical link for aggregate capacity and
 membership when both endpoints support it. Traffic hashing usually keeps one flow on one member, so two 100 Mb/s
 members do not normally make one flow run at 200 Mb/s.
 
-The unmanaged switch is not a confirmed aggregation peer. Do not connect two links between the switches to
-improvise a bundle. Save the live demonstration for confirmed compatible equipment and a separate rehearsal.
+The TP-Link and GL.iNet are not confirmed aggregation peers. Do not connect two links between the physical switches
+to improvise a bundle. A prepared Packet Tracer topology can provide two compatible switches for an optional
+simulation; save a physical demonstration for confirmed compatible equipment and a separate rehearsal.
