@@ -1,0 +1,140 @@
+# Slide outline
+
+Working content for a future deck. Keep the main slides brief; use the notes as presenter guidance.
+Slide numbers follow the timing in the [session plan](../docs/session-plan.md).
+
+## 1. How does data leave your laptop? (00:00-02:00)
+
+- Two computers want to talk. What must exist between them?
+- Today: follow data from a local cable to an internet connection.
+- No prior networking knowledge required.
+
+Speaker prompt: ask who has used `ping` and who has configured a switch. Both groups should have something to watch.
+
+## 2. Meet the hardware (02:00-05:00)
+
+- A hub repeats incoming signals to its other ports and shares a collision domain.
+- An Ethernet switch learns source MAC addresses and forwards using destination MAC addresses within a VLAN.
+- A router forwards packets between IP networks using its routing table.
+
+Show the Catalyst and unmanaged switch. Both switch Ethernet; management adds visibility and configuration.
+There is no physical hub in the listed equipment, so explain its behavior rather than claim to demonstrate one.
+Home routers and hotspots often combine routing, Wi-Fi, DHCP, NAT, and firewall functions in one box.
+
+## 3. OSI: a map for asking better questions (05:00-09:00)
+
+1. Physical: signals, connectors, link.
+2. Data link: Ethernet frames, MAC addresses, local switching.
+3. Network: IP addresses and routing.
+4. Transport: TCP/UDP and ports.
+5. Session: managing conversations.
+6. Presentation: data representation and related transformations.
+7. Application: protocols such as HTTP and DNS.
+
+Use one example: unplugged cable, wrong IP route, then an application error. The model helps narrow where to look.
+Real implementations do not always divide neatly into seven separate components.
+
+## 4. TCP/IP and encapsulation (09:00-13:00)
+
+- Application roughly maps to OSI 5-7; transport to 4; internet to 3; link to 1-2.
+- An application message travels inside transport data, an IP packet, and a link-layer frame.
+- Each layer solves a different delivery problem.
+
+Trace an Ethernet/TCP example: HTTP data, TCP segment, IP packet, Ethernet frame, physical signals.
+On a routed Ethernet path, routers replace link-layer framing for the next hop. Ordinary routing preserves the
+destination IP, while NAT can change IP addresses and transport ports. TTL/hop limit changes along the route.
+
+## 5. Three kinds of address (13:00-16:00)
+
+- MAC: local link-layer delivery, for example `02:00:00:00:00:0a`.
+- IP: network-layer addressing, for example `192.168.50.10`.
+- Transport port: an endpoint identifier used by TCP or UDP, for example TCP port 443.
+
+Examples are illustrative, not discovered hardware values. A MAC address is not an immutable identity; it can be
+locally assigned or randomized. A transport port is not a physical switch socket.
+
+## 6. IPv4: local or through a gateway? (16:00-19:00)
+
+- IPv4 addresses have 32 bits, usually written as four decimal octets.
+- `192.168.50.10/24` and `192.168.50.20/24` are on the same example subnet.
+- An off-subnet destination normally uses a route through a gateway.
+
+For a same-subnet IPv4 peer, ARP resolves its IP to a local MAC. For an off-subnet destination, the host typically
+resolves the next-hop gateway's MAC instead. A switch is not the default gateway just because traffic passes through it.
+
+## 7. IPv6: more than longer addresses (19:00-23:00)
+
+- IPv6 has 128-bit addresses, written in hexadecimal with colon separators.
+- Example documentation address: `2001:db8::10`; `fe80::/10` is link-local space.
+- IPv6 uses Neighbor Discovery rather than ARP; it has no broadcast.
+- Dual stack means a device can use IPv4 and IPv6 together.
+
+Explain compressed zeros without a full addressing exercise. A link-local address does not prove global IPv6
+internet connectivity. IPv6 does not automatically provide encryption or make a network secure.
+
+## 8. Demo: watch a switch learn (23:00-35:00)
+
+Open the [demo runbook](../demos/README.md#demo-1-local-delivery-and-mac-learning-12-minutes).
+
+- Predict: does local communication require the internet?
+- Show: host configuration, ping, ARP, switch MAC table.
+- Move: a host behind the unmanaged switch, then observe the Catalyst uplink.
+- Break: disconnect one host cable, then restore it.
+
+Ask why multiple source MACs can appear on a single switch port. No parallel links are needed.
+
+## 9. TCP, UDP, DNS, DHCP (35:00-41:00)
+
+- IP provides packet delivery without a delivery guarantee.
+- TCP provides a reliable, ordered byte stream, using acknowledgments and retransmission.
+- UDP provides datagrams without built-in delivery or ordering guarantees; applications can add those features.
+- DNS resolves names; DHCP can supply host configuration.
+
+TCP connections can still fail. Do not equate UDP with "always faster" or TCP with "all web traffic".
+HTTP/3 uses QUIC over UDP. DNS is not limited to UDP. `ping` uses ICMP, not TCP.
+The offline lab uses static IPv4 configuration; its switches do not need to run DHCP for it to work.
+
+## 10. Getting beyond the LAN (41:00-48:00)
+
+- DSL carries access traffic over telephone copper; distance and line quality affect performance.
+- Cable uses coaxial access, often in a hybrid fiber/coax network; shared capacity and provisioning matter.
+- Fiber carries optical signals; service rates, sharing, and symmetry depend on the deployment and plan.
+- Cellular uses a radio access network; coverage, spectrum, congestion, and plan limits matter.
+
+Compare medium, installation constraints, latency, upload/download capacity, and mobility without fixed speed claims.
+These describe access technologies, not alternatives to TCP/IP. Do not imply fiber service is always dedicated
+or symmetric. A 100 Mb/s Ethernet link can limit traffic crossing it regardless of the ISP connection.
+
+Hold up the hotspot: laptop-to-hotspot Wi-Fi and hotspot-to-carrier cellular are different links.
+A modem or optical network terminal handles the access connection; a router handles IP forwarding, even when
+functions are combined in one device.
+
+## 11. Demo: inspect a hotspot connection (48:00-53:00)
+
+Use [demo 2](../demos/README.md#demo-2-hotspot-and-gateway-5-minutes), or replace it with the rehearsed port-security demo.
+
+- Inspect the Wi-Fi adapter's address, prefix, gateway, and DNS settings.
+- Identify what the hotspot supplies and where the cellular connection begins.
+- Compare with the isolated wired lab, which worked without an internet gateway.
+
+No live speed test is required. It would measure this setup at this moment, not rank all access technologies.
+
+## 12. Put the path back together (53:00-60:00)
+
+- MAC delivers on a link; IP routes between networks; transport connects application endpoints.
+- Models help you identify which part of the path to investigate.
+- Questions and the troubleshooting exercise from the session plan.
+
+## Appendix A. Port security
+
+Limit learned source MAC addresses on a supported access port, then observe a violation from a second host.
+Use a dedicated lab port and the runbook's rollback. This limits MAC use; it is not strong device authentication.
+
+## Appendix B. EtherChannel
+
+Combine compatible physical links into a logical link for aggregate capacity and resilience. LACP negotiates
+membership when both endpoints support it. Traffic hashing usually keeps one flow on one member, so two 100 Mb/s
+members do not normally make one flow run at 200 Mb/s.
+
+The unmanaged switch is not a confirmed aggregation peer. Do not connect two links between the switches to
+improvise a bundle. Save the live demonstration for confirmed compatible equipment and a separate rehearsal.
