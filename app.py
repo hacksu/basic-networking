@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
@@ -12,6 +12,11 @@ def index():
 @app.route('/notes.html')
 def notes():
     return render_template('notes.html')
+
+
+@app.route('/labs/packet-tracer.md')
+def companion_lab():
+    return send_from_directory('labs', 'packet-tracer.md')
 
 
 if __name__ == '__main__':

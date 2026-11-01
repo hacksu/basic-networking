@@ -18,6 +18,7 @@ def build():
             f.write(env.get_template(page).render())
 
     shutil.copytree(os.path.join(BASE_DIR, 'static'), os.path.join(DIST_DIR, 'static'))
+    shutil.copytree(os.path.join(BASE_DIR, 'labs'), os.path.join(DIST_DIR, 'labs'))
     print(f"Built static site in {DIST_DIR}")
 
 

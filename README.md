@@ -39,6 +39,17 @@ includes the construction steps; no prebuilt `.pkt` file is supplied yet, and th
 All presentation assets are local. Following external reference links requires internet access.
 The ignored `docs/` folder contains local planning material and is not needed to run or build the deck.
 
+## GitHub Pages
+
+[Slides](https://hacksu.github.io/basic-networking/) ·
+[Speaker notes](https://hacksu.github.io/basic-networking/notes.html) ·
+[Companion lab](https://hacksu.github.io/basic-networking/labs/packet-tracer.md)
+
+The [deployment workflow](.github/workflows/pages.yml) builds and publishes `dist/` on each push to `main`.
+It can also be run manually from GitHub Actions. The deployment includes the deck, `notes.html`, shared assets,
+and `labs/packet-tracer.md`, so attendees can download the companion guide without access to this repository.
+Local `docs/` planning material is not published. The repository's Pages publishing source must be GitHub Actions.
+
 ## Scope
 
 Cover TCP/IP and the OSI model, Ethernet and MAC addresses, IPv4 versus IPv6, switches versus hubs versus routers,
