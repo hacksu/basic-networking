@@ -7,10 +7,32 @@ The running question: **What happens when my laptop sends data to another comput
 
 ## Start here
 
-- [Session plan](docs/session-plan.md): learning goals, timing, and what to cut.
+- Run `python app.py` and open <http://127.0.0.1:5174> for the deck, or `/notes` for speaker notes.
+- Run `python build.py`, then open `dist/index.html` for an offline static copy.
 - [Slide outline](slides/outline.md): slide content, speaker prompts, and demo transitions.
 - [Demo runbook](demos/README.md): equipment, setup, commands, expected observations, and fallbacks.
-- [References](docs/references.md): primary sources for developing the talk.
+- The deck includes linked references and matching speaker notes with the full run of show.
+
+## Setup and presenting
+
+Use Python 3.13 or newer:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python app.py
+```
+
+Use arrows, space, Page Up / Page Down, or the navigation buttons. Home and End jump to the first and last slide.
+The NOTES link opens the presenter reference separately. For a static build, use `.venv\Scripts\python build.py`.
+Keep the entire `dist/` folder together, including `static/`, when copying it to another machine.
+
+The 22 main slides cover the scheduled hour, including live demos and questions. Three appendix slides cover
+optional port security, EtherChannel, and references. The five-minute hotspot segment can be replaced with
+rehearsed port security; appendices do not add time to the session.
+
+All presentation assets are local. Following external reference links requires internet access.
+The ignored `docs/` folder contains local planning material and is not needed to run or build the deck.
 
 ## Scope
 
@@ -23,15 +45,20 @@ hardware is confirmed. The core session fits 60 minutes including questions.
 
 ## Current state
 
-This is the initial planning material, not a finished slide deck. The demo instructions assume Windows presenter
+The deck and speaker notes are in `templates/`, with shared assets in `static/`. The demo instructions assume Windows presenter
 commands, two Ethernet-capable hosts, and an isolated lab. Those hosts and any adapters still need confirming.
 The exact Catalyst model, software, console access, and hotspot Ethernet capability are also unconfirmed.
 
-## Before building the deck
+## Before presenting
 
 - [ ] Identify the Catalyst model and software, and test console access.
 - [ ] Confirm two hosts, Ethernet adapters, cables, and presenter display arrangements.
 - [ ] Rehearse the offline demo and save backup output from the actual hardware.
 - [ ] Decide whether the hotspot segment or port security will occupy the optional demo slot.
-- [ ] Turn the outline into slides in the preferred presentation format.
 - [ ] Rehearse to 53 minutes, leaving seven minutes for recap and questions.
+
+## Template credit
+
+Adapted from the [HacKSU Presentation Template](https://github.com/hacksu/HacKSU-Presentation-Template)
+at [64f8d8e](https://github.com/hacksu/HacKSU-Presentation-Template/commit/64f8d8e05d02bca1d09b2462683606781f6fa62a).
+The Flask routes, static builder, visual theme, logo, and particle background come from that template.
