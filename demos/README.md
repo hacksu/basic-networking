@@ -51,6 +51,16 @@ Use the actual model's manual and CLI help before configuration. Do not paste co
 
 ## Demo 1: local delivery and MAC learning (12 minutes)
 
+The presenter uses this physical setup. Attendees follow the [Packet Tracer companion lab](../labs/packet-tracer.md)
+on their own laptops, with installation, sign-in, and a two-PC/one-switch starter prepared beforehand.
+No attendee needs access to the real switch console or demo LAN. Pairing or watching is a valid fallback.
+
+Use the existing segments as checkpoints: topology at 23:00, ping/tables at 25:00, an optional second simulated
+switch at 29:00, and disconnection at 32:00. Pause briefly for attendees after the first successful ping.
+PC command syntax differs from Windows: use plain `ping 192.168.50.20` in Packet Tracer. Keep the presenter's
+hardware and console projected; packet animation is an optional attendee exploration. The minimum checkpoint is
+a successful ping plus ARP and MAC-table observations. Cap individual troubleshooting at one minute.
+
 ### A. Identify the path (0-2 minutes)
 
 Read out the physical connections: host A to Catalyst, host B to Catalyst. No internet uplink is present.

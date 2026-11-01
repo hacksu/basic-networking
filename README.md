@@ -11,6 +11,7 @@ The running question: **What happens when my laptop sends data to another comput
 - Run `python build.py`, then open `dist/index.html` for an offline static copy.
 - [Slide outline](slides/outline.md): slide content, speaker prompts, and demo transitions.
 - [Demo runbook](demos/README.md): equipment, setup, commands, expected observations, and fallbacks.
+- [Packet Tracer companion lab](labs/packet-tracer.md): attendee setup and checkpoints alongside the physical demo.
 - The deck includes linked references and matching speaker notes with the full run of show.
 
 ## Setup and presenting
@@ -30,6 +31,10 @@ Keep the entire `dist/` folder together, including `static/`, when copying it to
 The 23 main slides cover the scheduled hour, including a vendor overview, live demos, and questions. Three appendix slides cover
 optional port security, EtherChannel, and references. The five-minute travel-router segment can be replaced with
 rehearsed port security; appendices do not add time to the session.
+
+The presenter uses actual hardware. Attendees can follow the local-network demo in Packet Tracer or watch/share
+a screen. Ask them to install, sign in, and build the starter topology before the session. The companion guide
+includes the construction steps; no prebuilt `.pkt` file is supplied yet, and the app workflow still needs rehearsal.
 
 All presentation assets are local. Following external reference links requires internet access.
 The ignored `docs/` folder contains local planning material and is not needed to run or build the deck.
@@ -63,6 +68,7 @@ The copper ports support at most 100 Mb/s. Check the negotiated speed during reh
 - [ ] Identify the GL.iNet and TP-Link model numbers; rehearse router mode and local DHCP on the GL.iNet.
 - [ ] Confirm two hosts, Ethernet adapters, cables, and presenter display arrangements.
 - [ ] Rehearse the offline demo and save backup output from the actual hardware.
+- [ ] Rehearse the Packet Tracer companion lab and distribute its setup instructions before the session.
 - [ ] Decide whether travel-router inspection or port security will occupy the optional demo slot.
 - [ ] Rehearse to 53 minutes, leaving seven minutes for recap and questions.
 

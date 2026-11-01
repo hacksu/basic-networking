@@ -92,6 +92,8 @@ internet connectivity. IPv6 does not automatically provide encryption or make a 
 ## 8. Demo: watch a switch learn (23:00-35:00)
 
 Open the [demo runbook](../demos/README.md#demo-1-local-delivery-and-mac-learning-12-minutes).
+The presenter uses physical equipment; attendees use the [Packet Tracer companion lab](../labs/packet-tracer.md).
+Distribute installation and starter-topology preparation before the session. Do not spend demo time on account setup.
 
 - Predict: does local communication require the internet?
 - Show: host configuration, ping, ARP, switch MAC table.
@@ -99,6 +101,8 @@ Open the [demo runbook](../demos/README.md#demo-1-local-delivery-and-mac-learnin
 - Break: disconnect one host cable, then restore it.
 
 Ask why multiple source MACs can appear on a single switch port. No parallel links are needed.
+Pause for the first ping/table checkpoint. A second simulated switch and ARP/ICMP animation are extensions;
+attendees can watch or pair if they fall behind. The existing 12-minute slot includes these checkpoints.
 
 ## 9. TCP, UDP, DNS, DHCP (35:00-41:00)
 
