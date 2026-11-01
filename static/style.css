@@ -261,6 +261,7 @@ pre code.hljs {
 #key-hint { font-size: 0.72em; color: #333; }
 
 /* Networking content uses the template's colors, type, and layouts. */
+html { font-size: clamp(18px, 1.8vw, 28px); }
 .slide-body { justify-content: center; gap: 22px; }
 .slide-body h2 { margin-bottom: 8px; }
 .two-col, .three-col { flex: initial; }
@@ -285,6 +286,7 @@ th { color: var(--green); }
 pre { flex: initial; padding: 22px; background: #080d12; color: #e8e8e8; line-height: 1.7; font-size: 1em; }
 .box pre { padding: 14px; font-size: 0.9em; }
 code { overflow-wrap: anywhere; }
+pre code { white-space: pre-wrap; }
 .steps { padding-left: 32px; }
 .steps li { margin-bottom: 18px; }
 a { color: #a0e8c8; text-underline-offset: 4px; }

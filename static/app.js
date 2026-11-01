@@ -54,6 +54,7 @@ const PREV_KEYCODES = new Set([8, 33, 37, 38]);
 
 document.addEventListener('keydown', e => {
   if (isTypingTarget(e.target)) return;
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('a, button')) return;
 
   const key = e.key;
   const code = e.keyCode;
