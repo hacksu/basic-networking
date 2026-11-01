@@ -36,6 +36,12 @@ The presenter uses actual hardware. Attendees can follow the local-network demo 
 a screen. Ask them to install, sign in, and build the starter topology before the session. The companion guide
 includes the construction steps; no prebuilt `.pkt` file is supplied yet, and the app workflow still needs rehearsal.
 
+Explain the concepts first, then move into one continuous hands-on block:
+
+- 00:00-36:00: concept slides, including transport protocols, DHCP/DNS, and internet access.
+- 36:00-53:00: physical hardware demo with Packet Tracer follow-along, then travel-router inspection.
+- 53:00-60:00: recap and questions.
+
 All presentation assets are local. Following external reference links requires internet access.
 The ignored `docs/` folder contains local planning material and is not needed to run or build the deck.
 

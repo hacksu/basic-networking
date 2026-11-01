@@ -1,7 +1,7 @@
 # Packet Tracer companion lab
 
 The presenter demonstrates on the physical Catalyst and TP-Link switches. You reproduce the same ideas in your
-own Packet Tracer network during minutes 23-35. You do not need to connect your laptop to the demo equipment.
+own Packet Tracer network during minutes 36-48, after the concept slides. You do not need to connect your laptop to the demo equipment.
 Watching or sharing a screen with another attendee is fine if Packet Tracer is not ready.
 
 ## Before the session
@@ -48,10 +48,10 @@ During the session, use **Save As** to make a working copy so you can reopen the
 
 | Session time | Presenter: actual equipment | You: Packet Tracer |
 | --- | --- | --- |
-| 23:00-25:00 | Trace the two hosts and Catalyst connections | Open your starter; check the addresses and links |
-| 25:00-29:00 | Ping, inspect ARP and the Catalyst MAC table | Run the commands below; optionally step through ARP/ICMP |
-| 29:00-32:00 | Move B behind the TP-Link switch | Watch first; add a second simulated switch if you are ready |
-| 32:00-35:00 | Unplug B, reconnect, observe recovery | Disconnect/reconnect B's simulated cable and repeat ping |
+| 36:00-38:00 | Trace the two hosts and Catalyst connections | Open your starter; check the addresses and links |
+| 38:00-42:00 | Ping, inspect ARP and the Catalyst MAC table | Run the commands below; optionally step through ARP/ICMP |
+| 42:00-45:00 | Move B behind the TP-Link switch | Watch first; add a second simulated switch if you are ready |
+| 45:00-48:00 | Unplug B, reconnect, observe recovery | Disconnect/reconnect B's simulated cable and repeat ping |
 
 The minimum finish is **one successful ping, one peer ARP entry, and one learned switch MAC entry**.
 The second switch and packet animation are extensions. Stop when the presenter moves on; this is not a race.

@@ -1,7 +1,7 @@
 # Slide outline
 
-Working content for a future deck. Keep the main slides brief; use the notes as presenter guidance.
-Slide numbers follow the timing in the [session plan](../docs/session-plan.md).
+Concepts first, then one continuous hardware/demo block. Keep the main slides brief; use the notes as presenter
+guidance. Section timings follow the [session plan](../docs/session-plan.md).
 
 ## 1. How does data leave your laptop? (00:00-02:00)
 
@@ -89,22 +89,7 @@ resolves the next-hop gateway's MAC instead. A switch is not the default gateway
 Explain compressed zeros without a full addressing exercise. A link-local address does not prove global IPv6
 internet connectivity. IPv6 does not automatically provide encryption or make a network secure.
 
-## 8. Demo: watch a switch learn (23:00-35:00)
-
-Open the [demo runbook](../demos/README.md#demo-1-local-delivery-and-mac-learning-12-minutes).
-The presenter uses physical equipment; attendees use the [Packet Tracer companion lab](../labs/packet-tracer.md).
-Distribute installation and starter-topology preparation before the session. Do not spend demo time on account setup.
-
-- Predict: does local communication require the internet?
-- Show: host configuration, ping, ARP, switch MAC table.
-- Move: a host behind the unmanaged switch, then observe the Catalyst uplink.
-- Break: disconnect one host cable, then restore it.
-
-Ask why multiple source MACs can appear on a single switch port. No parallel links are needed.
-Pause for the first ping/table checkpoint. A second simulated switch and ARP/ICMP animation are extensions;
-attendees can watch or pair if they fall behind. The existing 12-minute slot includes these checkpoints.
-
-## 9. TCP, UDP, DNS, DHCP (35:00-41:00)
+## 8. TCP, UDP, DNS, DHCP (23:00-29:00)
 
 - IP provides packet delivery without a delivery guarantee.
 - TCP provides a reliable, ordered byte stream, using acknowledgments and retransmission.
@@ -115,7 +100,7 @@ TCP connections can still fail. Do not equate UDP with "always faster" or TCP wi
 HTTP/3 uses QUIC over UDP. DNS is not limited to UDP. `ping` uses ICMP, not TCP.
 The offline lab uses static IPv4 configuration; its switches do not need to run DHCP for it to work.
 
-## 10. Getting beyond the LAN (41:00-48:00)
+## 9. Getting beyond the LAN (29:00-36:00)
 
 - DSL carries access traffic over telephone copper; distance and line quality affect performance.
 - Cable uses coaxial access, often in a hybrid fiber/coax network; shared capacity and provisioning matter.
@@ -131,6 +116,21 @@ Use a hotspot as the conceptual example: laptop-to-hotspot Wi-Fi and hotspot-to-
 The GL.iNet travel router is not assumed to have a cellular modem; a separate hotspot would be optional upstream equipment.
 A modem or optical network terminal handles the access connection; a router handles IP forwarding, even when
 functions are combined in one device.
+
+## 10. Demo: watch a switch learn (36:00-48:00)
+
+Open the [demo runbook](../demos/README.md#demo-1-local-delivery-and-mac-learning-12-minutes).
+The presenter uses physical equipment; attendees use the [Packet Tracer companion lab](../labs/packet-tracer.md).
+Distribute installation and starter-topology preparation before the session. Do not spend demo time on account setup.
+
+- Predict: does local communication require the internet?
+- Show: host configuration, ping, ARP, switch MAC table.
+- Move: a host behind the unmanaged switch, then observe the Catalyst uplink.
+- Break: disconnect one host cable, then restore it.
+
+Ask why multiple source MACs can appear on a single switch port. No parallel links are needed.
+Pause for the first ping/table checkpoint. A second simulated switch and ARP/ICMP animation are extensions;
+attendees can watch or pair if they fall behind. The existing 12-minute slot includes these checkpoints.
 
 ## 11. Demo: inspect the travel router (48:00-53:00)
 

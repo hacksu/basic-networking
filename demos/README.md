@@ -55,8 +55,10 @@ The presenter uses this physical setup. Attendees follow the [Packet Tracer comp
 on their own laptops, with installation, sign-in, and a two-PC/one-switch starter prepared beforehand.
 No attendee needs access to the real switch console or demo LAN. Pairing or watching is a valid fallback.
 
-Use the existing segments as checkpoints: topology at 23:00, ping/tables at 25:00, an optional second simulated
-switch at 29:00, and disconnection at 32:00. Pause briefly for attendees after the first successful ping.
+Finish the concept slides first, then keep both demonstrations together from 36:00 to 53:00.
+Use these local-network checkpoints: topology at 36:00, ping/tables at 38:00, an optional second simulated
+switch at 42:00, and disconnection at 45:00. Continue directly into the travel-router demonstration at 48:00.
+Pause briefly for attendees after the first successful ping.
 PC command syntax differs from Windows: use plain `ping 192.168.50.20` in Packet Tracer. Keep the presenter's
 hardware and console projected; packet animation is an optional attendee exploration. The minimum checkpoint is
 a successful ping plus ARP and MAC-table observations. Cap individual troubleshooting at one minute.
