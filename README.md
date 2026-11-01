@@ -27,7 +27,7 @@ Use arrows, space, Page Up / Page Down, or the navigation buttons. Home and End 
 The NOTES link opens the presenter reference separately. For a static build, use `.venv\Scripts\python build.py`.
 Keep the entire `dist/` folder together, including `static/`, when copying it to another machine.
 
-The 22 main slides cover the scheduled hour, including live demos and questions. Three appendix slides cover
+The 23 main slides cover the scheduled hour, including a vendor overview, live demos, and questions. Three appendix slides cover
 optional port security, EtherChannel, and references. The five-minute travel-router segment can be replaced with
 rehearsed port security; appendices do not add time to the session.
 

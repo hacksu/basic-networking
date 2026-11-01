@@ -11,7 +11,7 @@ Slide numbers follow the timing in the [session plan](../docs/session-plan.md).
 
 Speaker prompt: ask who has used `ping` and who has configured a switch. Both groups should have something to watch.
 
-## 2. Meet the hardware (02:00-05:00)
+## 2. Meet the hardware (02:00-04:00)
 
 - A hub repeats incoming signals to its other ports and shares a collision domain.
 - An Ethernet switch learns source MAC addresses and forwards using destination MAC addresses within a VLAN.
@@ -24,6 +24,19 @@ unconfirmed. This Catalyst has 48 copper 10/100 Fast Ethernet ports and four SFP
 Fast Ethernet port for the TP-Link link. Keep multilayer routing capabilities out of the core demo.
 There is no physical hub in the listed equipment, so explain its behavior rather than claim to demonstrate one.
 Home routers and hotspots often combine routing, Wi-Fi, DHCP, NAT, and firewall functions in one box.
+
+## 2a. Networking vendors (04:00-05:00)
+
+- Cisco: recognize Catalyst and connect it to the switch on the table.
+- Ubiquiti: recognize UniFi gateways, switches, and access points.
+- HPE Aruba Networking: recognize CX switches and campus/branch Wi-Fi products.
+- TP-Link: distinguish Omada business products from the desktop switch in this demo.
+- GL.iNet: connect travel routers to the AC1200 on the table.
+
+Keep this to recognition, not a buying guide. Shared protocols allow compatible equipment from different vendors
+to communicate; management tools, supported features, licensing, and support vary by model and product family.
+Vendor names on the slide link to primary sources. Do not imply every product has the same capabilities or that
+the TP-Link desktop switch belongs to Omada. This minute comes from the opening equipment/device discussion.
 
 ## 3. OSI: a map for asking better questions (05:00-09:00)
 
