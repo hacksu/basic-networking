@@ -1,6 +1,12 @@
 <section class="slide" id="slide-8" aria-labelledby="title-8">
-  <header class="slide-header"><span class="tag">Basics</span><span class="timing">16:00-19:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
-  <div class="slide-body"><h2 id="title-8">Is the destination local?</h2>
-<div class="network-path"><div class="network-node">Host A<br><code>192.168.50.10/24</code></div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">Switch</div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">Host B<br><code>192.168.50.20/24</code></div></div><div class="two-col"><div class="box"><h3>Same subnet</h3><p>ARP resolves the peer’s IPv4 address to its MAC address.</p></div><div class="box"><h3>Different subnet</h3><p>A route normally points to a gateway. ARP resolves that next hop’s MAC.</p></div></div><div class="info-bar">IPv4: 32 bits. In this /24 example, the first 24 bits identify the subnet.</div>
+  <header class="slide-header"><span class="tag">Basics</span><span class="timing">14:00-16:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body"><h2 id="title-8">What does /24 actually mean?</h2>
+<p class="subtitle">Host A: <code>192.168.50.10/24</code> · Mask: <code>255.255.255.0</code></p>
+<table class="layer-table"><thead><tr><th>Destination</th><th>Network with this /24</th><th>Decision for A</th></tr></thead><tbody>
+<tr><td><code>192.168.50.20</code></td><td><code>192.168.50.0/24</code></td><td>On the local subnet</td></tr>
+<tr><td><code>192.168.51.20</code></td><td><code>192.168.51.0/24</code></td><td>Needs a route beyond the subnet</td></tr>
+</tbody></table>
+<ul><li>The first 24 bits identify this network; eight bits remain.</li><li>Here, <code>.0</code> is the network address and <code>.255</code> is the broadcast address.</li><li>A looks at its routes to choose an outgoing interface and next hop.</li></ul>
+<div class="info-bar">This example uses a /24. Matching the first three octets is not a general rule for every prefix length.</div>
   </div>
 </section>

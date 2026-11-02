@@ -1,0 +1,12 @@
+<section class="slide" id="slide-dns" aria-labelledby="title-dns">
+  <header class="slide-header"><span class="tag">Application services</span><span class="timing">27:30-30:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body">
+    <h2 id="title-dns">DNS: a name is not a route</h2>
+    <div class="network-path"><div class="network-node">Application asks<br>for a name</div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">Local cache /<br>DNS resolver</div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">DNS records<br>A / AAAA</div></div>
+    <div class="two-col">
+      <div class="box"><h3>Resolve the name</h3><p>A records supply IPv4 addresses; AAAA records supply IPv6 addresses.</p><p>Cached answers can be reused until their TTL expires.</p></div>
+      <div class="box"><h3>Then connect</h3><p>The host still needs a route and next-hop delivery.</p><p>The transport connection and application request can fail separately.</p></div>
+    </div>
+    <div class="info-bar">DHCP configures the host. DNS resolves names. Neither guarantees that a website will load.</div>
+  </div>
+</section>

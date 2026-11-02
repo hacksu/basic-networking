@@ -1,0 +1,13 @@
+<section class="slide" id="slide-learning" aria-labelledby="title-learning">
+  <header class="slide-header"><span class="tag">Local delivery</span><span class="timing">12:00-14:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body">
+    <h2 id="title-learning">How does a switch learn?</h2>
+    <div class="network-path"><div class="network-node">Host A</div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">Port 1 · switch · Port 2</div><span class="path-arrow" aria-hidden="true">→</span><div class="network-node">Host B</div></div>
+    <table class="layer-table"><thead><tr><th>When a frame arrives</th><th>What the switch does</th></tr></thead><tbody>
+      <tr><td>Source is A, arriving on port 1</td><td>Learn A → port 1 in this VLAN</td></tr>
+      <tr><td>Destination B is not learned yet</td><td>Flood to eligible other ports in this VLAN</td></tr>
+      <tr><td>B replies through port 2</td><td>Learn B → port 2; forward toward A</td></tr>
+    </tbody></table>
+    <div class="info-bar">Learn from the source. Forward using the destination. The switch does not need to know the hosts’ IP addresses.</div>
+  </div>
+</section>

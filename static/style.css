@@ -324,7 +324,7 @@ a { color: #a0e8c8; text-underline-offset: 4px; }
   .layer-table { font-size: 0.72em; }
   .sources { columns: 1; }
   #nav { flex-wrap: wrap; gap: 12px; }
-  #progress-dots { order: 5; width: 100%; justify-content: center; gap: 5px; }
+  #progress-dots { order: 5; width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
