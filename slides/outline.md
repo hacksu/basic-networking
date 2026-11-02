@@ -38,7 +38,7 @@ to communicate; management tools, supported features, licensing, and support var
 Vendor names on the slide link to primary sources. Do not imply every product has the same capabilities or that
 the TP-Link desktop switch belongs to Omada. This minute comes from the opening equipment/device discussion.
 
-## 3. OSI: a map for asking better questions (05:00-09:00)
+## 3. OSI: a map for asking better questions (05:00-08:00)
 
 1. Physical: signals, connectors, link.
 2. Data link: Ethernet frames, MAC addresses, local switching.
@@ -51,7 +51,7 @@ the TP-Link desktop switch belongs to Omada. This minute comes from the opening 
 Use one example: unplugged cable, wrong IP route, then an application error. The model helps narrow where to look.
 Real implementations do not always divide neatly into seven separate components.
 
-## 4. TCP/IP and encapsulation (09:00-13:00)
+## 4. TCP/IP and encapsulation (08:00-10:00)
 
 - Application roughly maps to OSI 5-7; transport to 4; internet to 3; link to 1-2.
 - An application message travels inside transport data, an IP packet, and a link-layer frame.
@@ -61,7 +61,7 @@ Trace an Ethernet/TCP example: HTTP data, TCP segment, IP packet, Ethernet frame
 On a routed Ethernet path, routers replace link-layer framing for the next hop. Ordinary routing preserves the
 destination IP, while NAT can change IP addresses and transport ports. TTL/hop limit changes along the route.
 
-## 5. Three kinds of address (13:00-16:00)
+## 5. Addresses and switch learning (10:00-14:00)
 
 - MAC: local link-layer delivery, for example `02:00:00:00:00:0a`.
 - IP: network-layer addressing, for example `192.168.50.10`.
@@ -70,7 +70,11 @@ destination IP, while NAT can change IP addresses and transport ports. TTL/hop l
 Examples are illustrative, not discovered hardware values. A MAC address is not an immutable identity; it can be
 locally assigned or randomized. A transport port is not a physical switch socket.
 
-## 6. IPv4: local or through a gateway? (16:00-19:00)
+Follow with a worked MAC-table example: A arrives on port 1, so learn A there. If B is unknown, flood to eligible
+other VLAN ports. B's reply teaches its port and can be forwarded toward the now-known A. Contrast source learning
+with destination lookup, and contrast the switch's table with a host's ARP cache.
+
+## 6. IPv4, ARP, and routed delivery (14:00-20:00)
 
 - IPv4 addresses have 32 bits, usually written as four decimal octets.
 - `192.168.50.10/24` and `192.168.50.20/24` are on the same example subnet.
@@ -79,17 +83,27 @@ locally assigned or randomized. A transport port is not a physical switch socket
 For a same-subnet IPv4 peer, ARP resolves its IP to a local MAC. For an off-subnet destination, the host typically
 resolves the next-hop gateway's MAC instead. A switch is not the default gateway just because traffic passes through it.
 
-## 7. IPv6: more than longer addresses (19:00-23:00)
+Use three separate worked slides:
+
+1. `/24` means mask `255.255.255.0`: `.50.20` is on A's example subnet, while `.51.20` is outside it.
+2. A broadcasts an ARP request, B replies, and A can address a frame to B. ARP and MAC learning fill different tables.
+3. A remote IP packet is placed in a frame to the gateway's MAC. The router selects an onward route and new framing.
+
+The example gateway `192.168.50.1` is illustrative, not a new setting for the offline demo. Explain that ordinary
+routing preserves the IP destination while NAT can rewrite addresses. Ask learners to predict which MAC is used
+for a remote destination before advancing to the answer.
+
+## 7. IPv6: more than longer addresses (20:00-23:00)
 
 - IPv6 has 128-bit addresses, written in hexadecimal with colon separators.
 - Example documentation address: `2001:db8::10`; `fe80::/10` is link-local space.
 - IPv6 uses Neighbor Discovery rather than ARP; it has no broadcast.
 - Dual stack means a device can use IPv4 and IPv6 together.
 
-Explain compressed zeros without a full addressing exercise. A link-local address does not prove global IPv6
+Expand `2001:db8::10` into its eight groups and explain that `::` can occur only once. A link-local address does not prove global IPv6
 internet connectivity. IPv6 does not automatically provide encryption or make a network secure.
 
-## 8. TCP, UDP, DNS, DHCP (23:00-29:00)
+## 8. TCP, UDP, DHCP, and DNS (23:00-30:00)
 
 - IP provides packet delivery without a delivery guarantee.
 - TCP provides a reliable, ordered byte stream, using acknowledgments and retransmission.
@@ -100,7 +114,14 @@ TCP connections can still fail. Do not equate UDP with "always faster" or TCP wi
 HTTP/3 uses QUIC over UDP. DNS is not limited to UDP. `ping` uses ICMP, not TCP.
 The offline lab uses static IPv4 configuration; its switches do not need to run DHCP for it to work.
 
-## 9. Getting beyond the LAN (29:00-36:00)
+Use a dedicated handshake slide to walk SYN, SYN+ACK, ACK, then connect sequence numbers and acknowledgments
+to byte-stream delivery and retransmission. Distinguish a successful TCP connection from encryption and application success.
+
+Split host configuration from name resolution. Explain the typical initial DHCPv4 Discover/Offer/Request/ACK
+exchange, leases, and renewal. Then walk name lookup through a cache/resolver, A/AAAA records, and the remaining
+route/transport/application steps. A DHCP lease or DNS answer alone does not prove internet connectivity.
+
+## 9. Getting beyond the LAN (30:00-36:00)
 
 - DSL carries access traffic over telephone copper; distance and line quality affect performance.
 - Cable uses coaxial access, often in a hybrid fiber/coax network; shared capacity and provisioning matter.
