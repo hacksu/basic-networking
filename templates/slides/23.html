@@ -1,9 +1,9 @@
 <section class="slide" id="slide-23" aria-labelledby="title-23">
-  <header class="slide-header"><span class="tag">Appendix · not extra time</span><span class="timing">Optional · replaces demo 2</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <header class="slide-header"><span class="tag">Appendix</span><span class="timing">Optional</span><img src="static/HacKSU.png" alt="HacKSU"></header>
   <div class="slide-body"><h2 id="title-23">Port security</h2>
-<div class="two-col"><div class="box"><h3>Idea</h3><p>Limit source MAC addresses on a supported access port.</p><p>Swap A for B and inspect violations.</p></div><div class="box"><h3>Dedicated lab port only</h3><pre><code>switchport mode access
+<div class="two-col"><div class="box"><h3>Idea</h3><p>Limit source MAC addresses on a supported access port.</p><p>Swap A for B and inspect violations.</p></div><div class="box"><h3>Access-port example</h3><pre><code>switchport mode access
 switchport port-security
 switchport port-security maximum 1
-switchport port-security violation restrict</code></pre></div></div><div class="info-bar">Rehearse on the exact model. Restrict drops unauthorized source traffic. MAC limits are not strong authentication.</div>
+switchport port-security violation restrict</code></pre></div></div><div class="info-bar">Restrict mode drops unauthorized source traffic while the port stays up. MAC limits are not strong authentication.</div>
   </div>
 </section>
