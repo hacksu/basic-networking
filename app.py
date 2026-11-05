@@ -19,6 +19,11 @@ def companion_lab():
     return send_from_directory('labs', 'packet-tracer.md')
 
 
+@app.route('/labs/packet-tracer/<filename>')
+def packet_tracer_download(filename: str):
+    return send_from_directory('labs/packet-tracer', filename, as_attachment=True)
+
+
 if __name__ == '__main__':
     print("Starting Basic Networking at http://127.0.0.1:5174")
     app.run(debug=True, host='127.0.0.1', port=5174)

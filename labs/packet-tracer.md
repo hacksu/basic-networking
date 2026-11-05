@@ -10,14 +10,42 @@ Watching or sharing a screen with another attendee is fine if Packet Tracer is n
    Follow [Cisco's installation and first-launch instructions](https://www.netacad.com/skillsforall/files/Cisco_Packet_Tracer_Download_and_Installation_Instructions.pdf).
 2. Install it and complete the required Cisco sign-in before arriving. Launch it again to check access.
    Use a supported desktop/laptop OS; Packet Tracer is not a phone/tablet app.
-3. Build the starter topology below and save it before sending any traffic. Save a local copy of this guide too.
+3. Download the starter below, configure the PC addresses using the table, and save a working copy before sending
+   any traffic. Save a local copy of this guide too. The manual construction steps remain available as a fallback.
    Installation and account troubleshooting are outside the one-hour session.
 
-There is no supplied `.pkt` file yet. These instructions describe how to create your own. The Packet Tracer
-workflow has not been exercised in the app for this repo; the presenter should rehearse it before distributing
-the lab as a tested activity. Menu labels and available commands can differ by release.
+## Activity downloads
 
-## Build your starter network
+- [Starter activity](packet-tracer/networking-starter.pkt): PC0 and PC1 cabled to a 2960 switch. PC IPv4 settings
+  are blank so they can be configured as an exercise.
+- [Completed example](packet-tracer/networking-completed.pkt): the same topology, with `192.168.50.10/24` and
+  `192.168.50.20/24`. Gateway and DNS are unset. No ping or other simulation traffic has been generated.
+
+**Status: draft, pending an in-app test.** Both files pass authenticated decoding, byte-identical re-encoding,
+and checks for device models, power, cabling, and PC IPv4 settings. They have not been opened or simulated in
+Packet Tracer. Menu labels, loading compatibility, and runtime behavior still need checking.
+
+The files use an 8.1-format seed shipped with the installed Packet Tracer 8.2.2 samples, plus PC definitions from
+its bundled samples. They were authored offline with
+[packet-tracer-pkt-format 0.4.1](https://github.com/aacanadaa/packet-tracer-pkt-format).
+That library is not needed to open the activities.
+
+## First test in Packet Tracer
+
+1. Open `networking-completed.pkt`. Check for two PCs, one 2960 switch, and two cables, with no file-conversion error.
+2. Confirm PC0's `FastEthernet0` connects to Switch0 `FastEthernet0/1`, and PC1 connects to `FastEthernet0/2`.
+3. Check both PCs' IPv4 settings against the table below. Wait for the switch ports to reach forwarding state.
+4. From PC0, run `ping 192.168.50.20`, retry once if needed, then check `arp -a` and `show mac address-table`.
+   Success is expected from the configuration, but has not been observed in the application yet.
+5. Open `networking-starter.pkt`. Confirm the same devices and cables are present but PC IPv4 fields are blank.
+   Enter the table's addresses and repeat the ping test. Save a working copy after it succeeds.
+
+An error on opening is a file-compatibility issue to report separately from a loaded topology whose ping fails.
+
+## Open the starter, or build it manually
+
+Open the supplied starter to skip device placement and cabling. If it cannot be opened, create this same topology
+manually and use the remainder of the guide.
 
 In a new **Logical** workspace, add two PCs from **End Devices** and one **2960** switch from
 **Network Devices > Switches**. The simulated switch does not need to match the physical 3560's exact model.
@@ -41,8 +69,8 @@ On each PC, open **Desktop > IP Configuration**, select static IPv4 configuratio
 | Default gateway | Unset | Unset |
 | DNS server | Unset | Unset |
 
-Do not add a router, internet cloud, or DHCP server. Save as `networking-starter.pkt` before your first ping.
-During the session, use **Save As** to make a working copy so you can reopen the starter if you get lost.
+Do not add a router, internet cloud, or DHCP server. Use **Save As** to save `networking-working.pkt` before your
+first ping. Keep the downloaded files unchanged so you can reopen a clean activity if you get lost.
 
 ## Follow the physical demo
 
