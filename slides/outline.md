@@ -38,7 +38,11 @@ to communicate; management tools, supported features, licensing, and support var
 Vendor names on the slide link to primary sources. Do not imply every product has the same capabilities or that
 the TP-Link desktop switch belongs to Omada. This minute comes from the opening equipment/device discussion.
 
-## 3. OSI: a map for asking better questions (05:00-08:00)
+## 3. Why the models exist, then the OSI layers (05:00-09:00)
+
+Start with the need for interoperability and dividing responsibilities. OSI gives a shared reference model;
+TCP/IP supplies concrete protocols that connect different networks. Layering lets applications use different
+link technologies through common interfaces. Explain these benefits before presenting the layer names.
 
 1. Physical: signals, connectors, link.
 2. Data link: Ethernet frames, MAC addresses, local switching.
@@ -51,17 +55,29 @@ the TP-Link desktop switch belongs to Omada. This minute comes from the opening 
 Use one example: unplugged cable, wrong IP route, then an application error. The model helps narrow where to look.
 Real implementations do not always divide neatly into seven separate components.
 
-## 4. TCP/IP and encapsulation (08:00-10:00)
+Then name the protocol data units: application data, TCP segments or UDP datagrams, IP packets, Ethernet frames,
+and physical signals. OSI does not add seven headers or supply an extra "OSI packet" in the demo.
+
+## 4. TCP/IP, encapsulation, and packet headers (09:00-13:00)
 
 - Application roughly maps to OSI 5-7; transport to 4; internet to 3; link to 1-2.
 - An application message travels inside transport data, an IP packet, and a link-layer frame.
 - Each layer solves a different delivery problem.
 
+Use a labeled packet diagram: Ethernet header + IP packet + FCS; expand the IP payload into an IP header and
+TCP segment, then the TCP payload into application bytes. The receiver interprets those layers in reverse.
+The FCS detects frame errors; Ethernet does not provide retransmission when it fails.
+
+Follow with selected header fields and the question each answers: MAC addresses and EtherType for link delivery,
+IP addresses/TTL/Protocol for network delivery, TCP ports/sequence/ACK/flags for a byte stream, and UDP
+ports/length/checksum for datagrams. IPv6 uses Hop Limit and Next Header. These are selected fields, not complete
+byte-accurate layouts. TCP and UDP are alternatives in the diagram, not two headers required in every packet.
+
 Trace an Ethernet/TCP example: HTTP data, TCP segment, IP packet, Ethernet frame, physical signals.
 On a routed Ethernet path, routers replace link-layer framing for the next hop. Ordinary routing preserves the
 destination IP, while NAT can change IP addresses and transport ports. TTL/hop limit changes along the route.
 
-## 5. Addresses and switch learning (10:00-14:00)
+## 5. Addresses and switch learning (13:00-15:30)
 
 - MAC: local link-layer delivery, for example `02:00:00:00:00:0a`.
 - IP: network-layer addressing, for example `192.168.50.10`.
@@ -74,7 +90,7 @@ Follow with a worked MAC-table example: A arrives on port 1, so learn A there. I
 other VLAN ports. B's reply teaches its port and can be forwarded toward the now-known A. Contrast source learning
 with destination lookup, and contrast the switch's table with a host's ARP cache.
 
-## 6. IPv4, ARP, and routed delivery (14:00-20:00)
+## 6. IPv4, ARP, and routed delivery (15:30-20:00)
 
 - IPv4 addresses have 32 bits, usually written as four decimal octets.
 - `192.168.50.10/24` and `192.168.50.20/24` are on the same example subnet.
@@ -113,6 +129,11 @@ internet connectivity. IPv6 does not automatically provide encryption or make a 
 TCP connections can still fail. Do not equate UDP with "always faster" or TCP with "all web traffic".
 HTTP/3 uses QUIC over UDP. DNS is not limited to UDP. `ping` uses ICMP, not TCP.
 The offline lab uses static IPv4 configuration; its switches do not need to run DHCP for it to work.
+
+Add a separate use-case slide: TCP fits applications needing a reliable ordered byte stream, such as SSH and many
+database/file-transfer protocols. UDP fits application-controlled datagrams, such as live voice or game-state updates,
+where a fresh update can matter more than recovery of an old one. Discuss loss handling and congestion control;
+do not claim UDP always gives lower latency. DNS can use TCP or UDP, and HTTP/3 adds QUIC's reliability over UDP.
 
 Use a dedicated handshake slide to walk SYN, SYN+ACK, ACK, then connect sequence numbers and acknowledgments
 to byte-stream delivery and retransmission. Distinguish a successful TCP connection from encryption and application success.

@@ -1,8 +1,12 @@
 <section class="slide" id="slide-6" aria-labelledby="title-6">
-  <header class="slide-header"><span class="tag">Basics</span><span class="timing">09:00-10:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
-  <div class="slide-body"><h2 id="title-6">Data travels inside other data</h2>
-
-<div class="encapsulation">Ethernet frame<div>IP packet<div>TCP segment<div>Application data</div></div></div></div>
-<div class="info-bar">On a routed Ethernet path, each router builds a new link-layer frame for the next hop.</div>
+  <header class="slide-header"><span class="tag">Basics</span><span class="timing">10:00-11:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body"><h2 id="title-6">Encapsulation: each layer adds context</h2>
+<div class="packet-stack">
+  <div class="packet-band"><strong>Ethernet frame</strong><span>MAC header</span><span class="packet-payload">IP packet</span><span>FCS</span></div>
+  <div class="packet-band"><strong>IP packet</strong><span>IP header</span><span class="packet-payload">TCP segment</span></div>
+  <div class="packet-band"><strong>TCP segment</strong><span>TCP header</span><span class="packet-payload">Application bytes</span></div>
+</div>
+<p>Each row expands the payload in the row above it. The receiver interprets the layers in reverse.</p>
+<div class="info-bar">Example: TCP over IP over Ethernet. The Ethernet FCS detects frame errors; it does not retransmit the data.</div>
   </div>
 </section>

@@ -1,0 +1,14 @@
+<section class="slide" id="slide-pdus" aria-labelledby="title-pdus">
+  <header class="slide-header"><span class="tag">Names for the data</span><span class="timing">08:00-09:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body">
+    <h2 id="title-pdus">Data, segments, packets, and frames</h2>
+    <table class="layer-table"><thead><tr><th>OSI view</th><th>Name in this example</th><th>What it carries</th></tr></thead><tbody>
+      <tr><td>7-5 · Application-related work</td><td>Application data</td><td>An HTTP message or DNS message</td></tr>
+      <tr><td>4 · Transport</td><td>TCP segment / UDP datagram</td><td>Transport header + application bytes</td></tr>
+      <tr><td>3 · Network</td><td>IP packet</td><td>IP header + upper-layer data</td></tr>
+      <tr><td>2 · Data link</td><td>Ethernet frame</td><td>Link header + payload + trailer</td></tr>
+      <tr><td>1 · Physical</td><td>Bits represented by signals</td><td>Electrical, optical, or radio transmission</td></tr>
+    </tbody></table>
+    <div class="info-bar">OSI describes responsibilities. It does not add seven separate headers or define an “OSI packet” for this traffic.</div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<section class="slide" id="slide-fields" aria-labelledby="title-fields">
+  <header class="slide-header"><span class="tag">Reading packet headers</span><span class="timing">11:00-13:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
+  <div class="slide-body">
+    <h2 id="title-fields">Which header answers which question?</h2>
+    <table class="layer-table"><thead><tr><th>Header</th><th>Selected fields</th><th>What they explain</th></tr></thead><tbody>
+      <tr><td>Ethernet</td><td>Source/destination MAC, EtherType</td><td>Local delivery; what the payload contains</td></tr>
+      <tr><td>IPv4</td><td>Source/destination IP, TTL, Protocol</td><td>Routing destination, lifetime, upper-layer protocol</td></tr>
+      <tr><td>TCP</td><td>Ports, sequence/ACK numbers, flags</td><td>Connection endpoints and stream delivery</td></tr>
+      <tr><td>UDP</td><td>Ports, length, checksum</td><td>Datagram endpoints, size, error checking</td></tr>
+    </tbody></table>
+    <div class="info-bar">Selected fields, not complete layouts. IPv6 uses Hop Limit and Next Header; UDP does not supply sequence numbers or ACKs.</div>
+  </div>
+</section>

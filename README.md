@@ -28,7 +28,7 @@ Use arrows, space, Page Up / Page Down, or the navigation buttons. Home and End 
 The NOTES link opens the presenter reference separately. For a static build, use `.venv\Scripts\python build.py`.
 Keep the entire `dist/` folder together, including `static/`, when copying it to another machine.
 
-The 28 main slides cover the scheduled hour, including a vendor overview, live demos, and questions. Three appendix slides cover
+The 32 main slides cover the scheduled hour, including a vendor overview, live demos, and questions. Three appendix slides cover
 optional port security, EtherChannel, and references. The five-minute travel-router segment can be replaced with
 rehearsed port security; appendices do not add time to the session.
 
@@ -41,6 +41,11 @@ Explain the concepts first, then move into one continuous hands-on block:
 - 00:00-36:00: concept slides, including transport protocols, DHCP/DNS, and internet access.
 - 36:00-53:00: physical hardware demo with Packet Tracer follow-along, then travel-router inspection.
 - 53:00-60:00: recap and questions.
+
+The teaching section explains why the models exist, maps OSI responsibilities to the TCP/IP suite, and traces
+application data through transport segments/datagrams, IP packets, and Ethernet frames. Selected header fields
+and TCP-versus-UDP use cases connect the models to real traffic. Prose uses a readable sans-serif face while
+HackSU headings and technical values retain monospace styling; the presentation has no moving background.
 
 All presentation assets are local. Following external reference links requires internet access.
 The ignored `docs/` folder contains local planning material and is not needed to run or build the deck.
@@ -93,4 +98,4 @@ The copper ports support at most 100 Mb/s. Check the negotiated speed during reh
 
 Adapted from the [HacKSU Presentation Template](https://github.com/hacksu/HacKSU-Presentation-Template)
 at [64f8d8e](https://github.com/hacksu/HacKSU-Presentation-Template/commit/64f8d8e05d02bca1d09b2462683606781f6fa62a).
-The Flask routes, static builder, visual theme, logo, and particle background come from that template.
+The Flask routes, static builder, visual theme, logo, and navigation were adapted from that template.
