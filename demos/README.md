@@ -17,7 +17,8 @@ No PoE-powered endpoint has been confirmed. Power the travel router according to
 
 Still needed or unconfirmed:
 
-- Two hosts with Ethernet, including adapters if necessary.
+- Two hosts with Ethernet, including adapters if necessary: host A is Windows, host B is Fedora Linux.
+  Fedora commands for each step are in the speaker notes live demo procedure.
 - Three Ethernet patch cables, plus a spare.
 - TP-Link model number and confirmation of its unmanaged operation.
 - GL.iNet model number, firmware, router-mode settings, LAN subnet, DHCP state, power supply, and Wi-Fi credentials.
