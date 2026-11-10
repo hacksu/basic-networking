@@ -6,7 +6,8 @@ Confirmed inventory:
 
 - TP-Link 5-port Gigabit desktop switch, used as the unmanaged switch in this runbook.
 - GL.iNet AC1200 wireless travel router, used separately for local DHCP and gateway inspection.
-- Cisco Catalyst 3560 series PoE switch: 48 copper 10/100 Fast Ethernet ports and four SFP slots.
+- Cisco Catalyst WS-C3560-48PS-S PoE switch, IOS 12.2(35)SE5 (C3560-IPBASE-M): 48 copper 10/100 Fast Ethernet
+  ports (`Fa0/1`-`Fa0/48`) and four SFP slots (`Gi0/1`-`Gi0/4`).
   No SFP modules are available. Use copper ports for every Catalyst connection in this demo.
 
 Each available Catalyst copper link supports at most 100 Mb/s, including the link to the TP-Link Gigabit switch.
@@ -18,27 +19,34 @@ Still needed or unconfirmed:
 
 - Two hosts with Ethernet, including adapters if necessary.
 - Three Ethernet patch cables, plus a spare.
-- Catalyst console cable/adapter, terminal software, and authorized access.
-- Exact Catalyst product ID, software, interface names, VLAN state, and supported commands.
 - TP-Link model number and confirmation of its unmanaged operation.
 - GL.iNet model number, firmware, router-mode settings, LAN subnet, DHCP state, power supply, and Wi-Fi credentials.
 - Optional upstream mobile hotspot and service, if internet access will be shown. The travel router is not assumed
   to have a cellular modem or any particular upstream connection configured.
 - Projector readability for both the console and host terminal.
 
-Commands below are Windows host examples and common Cisco IOS forms, not verified device-specific instructions.
-Use the actual model's manual and CLI help before configuration. Do not paste configuration into an unidentified switch.
+Console baseline, read on 2026-11-10 over USB serial at 9600 baud (no configuration was changed):
+
+- Mostly default configuration, no enable secret, all ports in VLAN 1, no port security or EtherChannel groups.
+- The switch was then wiped (`write erase`, `delete flash:vlan.dat`, `reload`) and returns to hostname `Switch`
+  with only the default VLANs. The step-by-step wipe and demo procedure is in the speaker notes.
+- `show mac address-table dynamic`, `show mac-address-table dynamic`, `show port-security`, and
+  `show etherchannel summary` are all accepted on this release.
+
+The switch `show` commands below are verified on this unit. Configuration commands and Windows host commands are
+common forms that still need rehearsal. Use CLI help before configuration.
 
 ## Preflight
 
 1. Work on an isolated lab, disconnected from venue, campus, and production networks.
 2. Record `show version`, `show inventory`, `show interfaces status`, `show vlan brief`, and the existing configuration
    using the commands supported by this IOS release. Check the chassis label if inventory output is unavailable.
-   Keep backups private; configurations can contain credentials. Do not reset or erase the switch for the demo.
+   Keep backups private; configurations can contain credentials. This is a dedicated test switch: wipe it before
+   rehearsal and after the session using the speaker notes procedure.
 3. Select three unused access ports in the same lab VLAN. Confirm they are forwarding and not trunk or aggregation
    members. Record their original settings before any changes. Existing port security can invalidate the demo.
 4. Label two host-facing Fast Ethernet ports and a third Fast Ethernet port for the TP-Link inter-switch link.
-   The SFP slots are unused. Interface names such as `FastEthernet0/1` still need checking against the console output.
+   The SFP slots are unused and empty. Copper ports are `FastEthernet0/1` through `FastEthernet0/48`, all in VLAN 1.
 5. Start with host A and host B directly attached to two Catalyst ports. Keep the unmanaged switch disconnected.
 6. Record the hosts' original Ethernet settings, then configure these example static addresses through OS settings:
    A = `192.168.50.10/24`, B = `192.168.50.20/24`, with no gateway or DNS on the isolated Ethernet adapters.
@@ -98,7 +106,7 @@ On the Catalyst, use the supported spelling:
 show mac address-table dynamic
 ```
 
-Some older IOS versions use `show mac-address-table dynamic`. Check CLI help during rehearsal.
+This switch's IOS 12.2(35)SE5 also accepts the older `show mac-address-table dynamic` spelling.
 
 Expected observations: ping replies if the hosts and firewall permit it; host A has a neighbor entry for host B;
 the switch associates each host MAC with its ingress port and VLAN. Existing traffic may have populated the tables
@@ -151,6 +159,29 @@ Inspecting a default route does not demonstrate a packet being forwarded across 
 Fallback: show saved adapter and route output from this travel router. Keep unnecessary personal information off
 screen. Internet access is not required. Packet Tracer's ARP/ping walkthrough is another optional replacement for
 this five-minute slot if a topology has been prepared and rehearsed; it does not extend the hour.
+
+## Optional replacement: switch as DHCP server (5 minutes)
+
+Replaces demo 2. Run after demo 1 with host B still cabled. Tested on 2026-11-10 with one tablet on `Fa0/1`: it leased
+`192.168.50.100`, the counters showed one DISCOVER/OFFER/REQUEST/ACK, and the switch pinged it 5/5.
+
+```text
+configure terminal
+interface Vlan1
+ ip address 192.168.50.1 255.255.255.0
+ no shutdown
+exit
+ip dhcp excluded-address 192.168.50.1 192.168.50.99
+ip dhcp pool LAB
+ network 192.168.50.0 255.255.255.0
+ lease 0 1
+end
+```
+
+Set B's Ethernet adapter to automatic, run `ipconfig /renew` and `ipconfig /all`, and expect an address from
+`192.168.50.100` upward with DHCP server `192.168.50.1` and no gateway. On the switch, `show ip dhcp binding` and
+`show ip dhcp server statistics` show the lease and message counts. This IOS has no `show ip dhcp pool` and no
+`show running-config | section`; use `show running-config | begin ip dhcp`. Wipe the switch afterward.
 
 ## Optional replacement: port security (5 minutes)
 

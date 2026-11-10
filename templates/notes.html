@@ -84,6 +84,11 @@
       flex-direction: column;
       gap: 7px;
     }
+    .slide-note ol { padding-left: 22px; display: flex; flex-direction: column; gap: 7px; }
+    .slide-note ol li { font-size: 0.9em; line-height: 1.6; color: #ddd; }
+    .slide-note ol li code { background: #0a1520; padding: 1px 5px; border: 1px solid var(--border); color: var(--green); font-size: 0.92em; }
+    .slide-note > p { font-size: 0.85em; line-height: 1.6; color: #b6c8d2; }
+    .slide-note h3 { font-size: 0.9em; color: var(--blue); letter-spacing: 1px; margin: 16px 0 8px; }
     .slide-note ul li::before { content: '> '; color: var(--blue); }
     .slide-note ul li { font-size: 0.9em; line-height: 1.6; color: #ddd; }
     .slide-note ul li code {
@@ -108,7 +113,8 @@
       body { background: white; color: black; padding: 20px; max-width: none; }
       .slide-note, .runsheet { border: 1px solid #ccc; background: #f9f9f9; break-inside: avoid; }
       .slide-note h2, .runsheet h2 { color: #222; }
-      .slide-note ul li { color: #333; }
+      .slide-note ul li, .slide-note ol li, .slide-note > p { color: #333; }
+      .slide-note.steps { break-inside: auto; }
       .slide-note .demo { border-left-color: #4683FF; background: #f0f4ff; color: #333; }
       header { border-color: #333; }
       header h1 { color: #222; }
@@ -125,19 +131,63 @@
 <tr><td class="time">23:00-30:00</td><td>TCP/UDP behavior and use cases, handshake, DHCP, DNS</td></tr>
 <tr><td class="time">30:00-36:00</td><td>Internet access technologies and link limits</td></tr>
 <tr><td class="time">36:00-48:00</td><td>Local hardware demo and Packet Tracer follow-along</td></tr>
-<tr><td class="time">48:00-53:00</td><td>Travel router or rehearsed port security</td></tr>
+<tr><td class="time">48:00-53:00</td><td>Travel router, switch DHCP, or rehearsed port security</td></tr>
 <tr><td class="time">53:00-60:00</td><td>Recap and questions</td></tr>
 </table></div>
 <section class="slide-note setup"><h2>Before attendees arrive</h2><ul>
 <li>Confirm model, console access, three lab ports in one VLAN, two Ethernet hosts, adapters, and cables.</li>
 <li>Use an isolated network. Record existing settings. A: 192.168.50.10/24; B: 192.168.50.20/24. No wired gateway or DNS.</li>
 <li>Check subnet conflicts, link forwarding, and narrowly scoped ICMP permissions. Do not disable firewalls globally.</li>
-<li>Rehearse both hosts and save actual output privately as backup. Hardware commands are examples until verified.</li>
+<li>Rehearse both hosts and save actual output privately as backup. Follow the console procedure below; wipe the switch before rehearsal and again after the session.</li>
 <li>Distribute the <a href="labs/packet-tracer.md">Packet Tracer companion lab</a> before the session. Attendees should install, sign in, download the starter, and configure the two PC addresses beforehand. Draft starter and completed .pkt files are linked in the guide. They pass file-structure checks but still need opening and ping tests in Packet Tracer before the workshop.</li>
 <li>Keep exactly one inter-switch cable. Confirm the GL.iNet model, router mode, LAN subnet, and local DHCP. Keep this network separate from the wired lab.</li>
 <li>If behind schedule, shorten the access overview and skip demo 2. Preserve questions. Give failures at most 60 seconds.</li>
 <li>Explain concepts from 00:00 to 36:00. Keep the hardware demonstrations and attendee follow-along together from 36:00 to 53:00, then recap and questions. Do not return to new lecture topics between demonstrations.</li>
 </ul></section>
+<section class="slide-note setup steps"><h2>Catalyst console procedure, step by step</h2>
+<p>Switch commands were checked on the WS-C3560-48PS-S (IOS 12.2(35)SE5) on 2026-11-10. With one tablet on <code>Fa0/1</code>, the link came up at <code>a-100</code>/<code>a-full</code>, its MAC was learned, it leased <code>192.168.50.100</code>, and the switch pinged it 5/5. The two-laptop ping, the TP-Link move, and port security violations still need a rehearsal.</p>
+<h3>Connect</h3>
+<ol>
+<li>Plug the console cable into the Catalyst <code>CONSOLE</code> port. Open the terminal at 9600 baud, 8 data bits, no parity, 1 stop bit, no flow control.</li>
+<li>Press Enter until a <code>Switch&gt;</code> prompt appears, then run <code>enable</code> and <code>terminal length 0</code>.</li>
+</ol>
+<h3>Wipe (before rehearsal and after the session)</h3>
+<ol>
+<li><code>write erase</code>, then Enter at <code>[confirm]</code>.</li>
+<li><code>delete flash:vlan.dat</code>, then Enter at both prompts. If the file is already gone, IOS reports an error; continue.</li>
+<li><code>reload</code>. Answer <code>no</code> to <code>Save?</code> if asked, then Enter at <code>Proceed with reload?</code>. Booting takes a few minutes.</li>
+<li>Press Enter at <code>terminate autoinstall? [yes]</code>. Type <code>no</code> at <code>initial configuration dialog? [yes/no]</code>.</li>
+<li>Check: <code>enable</code>, then <code>show startup-config</code> reports <code>startup-config is not present</code> and <code>show vlan brief</code> lists only VLAN 1 and 1002-1005.</li>
+</ol>
+<h3>Demo 1: local delivery and MAC learning</h3>
+<ol>
+<li>Cable host A to <code>Fa0/1</code> and host B to <code>Fa0/2</code>. Keep <code>Fa0/3</code> free for the TP-Link uplink.</li>
+<li>Set A to <code>192.168.50.10/24</code> and B to <code>192.168.50.20/24</code>, no gateway or DNS. Run <code>ipconfig /all</code> on each.</li>
+<li><code>show interfaces status</code>: <code>Fa0/1</code> and <code>Fa0/2</code> should be <code>connected</code>, with negotiated speed and duplex shown as <code>a-100</code> and <code>a-full</code>.</li>
+<li>On A: <code>ping -n 4 192.168.50.20</code>, then <code>arp -a</code>. On B: <code>ping -n 4 192.168.50.10</code>.</li>
+<li>On the switch: <code>show mac address-table dynamic</code>. Match each host MAC to its port in VLAN 1.</li>
+<li>Move B to the TP-Link and run one cable from the TP-Link to <code>Fa0/3</code>. Ping again, then show B's MAC learned on <code>Fa0/3</code>.</li>
+<li>Run <code>ping -t 192.168.50.20</code> on A, unplug B, show the failures, reconnect, then stop with Ctrl+C.</li>
+</ol>
+<h3>Optional 48:00-53:00: the switch as a DHCP server</h3>
+<ol>
+<li>Give the switch an address and a pool. Excluding .1 to .99 keeps the static .10 and .20 out of the pool:
+<code>configure terminal</code>, <code>interface Vlan1</code>, <code>ip address 192.168.50.1 255.255.255.0</code>, <code>no shutdown</code>, <code>exit</code>, <code>ip dhcp excluded-address 192.168.50.1 192.168.50.99</code>, <code>ip dhcp pool LAB</code>, <code>network 192.168.50.0 255.255.255.0</code>, <code>lease 0 1</code>, <code>end</code>.</li>
+<li>Check: <code>show ip interface brief</code> shows <code>Vlan1</code> up at <code>192.168.50.1</code> once a host port is connected. <code>show running-config | begin ip dhcp</code> shows the pool. This IOS has no <code>show ip dhcp pool</code>.</li>
+<li>On B, set the Ethernet adapter to automatic (DHCP), then run <code>ipconfig /renew</code> and <code>ipconfig /all</code>. Expect an address from <code>192.168.50.100</code> upward, DHCP server <code>192.168.50.1</code>, and no default gateway.</li>
+<li>On the switch: <code>show ip dhcp binding</code> lists B's MAC and lease. The client ID is <code>01</code> followed by the MAC, and the expiry shows a 1993 date because the switch clock is unset. <code>show arp</code> lists B on <code>Vlan1</code>, and <code>ping 192.168.50.100</code> from the switch should succeed. <code>show ip dhcp server statistics</code> counts DISCOVER, OFFER, REQUEST, and ACK, matching the DHCP slide.</li>
+<li>The pool sets no <code>default-router</code> or <code>dns-server</code>, so the lease works with no internet path. Set B back to static afterward.</li>
+</ol>
+<h3>Optional: port security</h3>
+<ol>
+<li>Use the commands and rollback from the port security note below on <code>Fa0/1</code>. They were accepted and rolled back cleanly in testing; violation behavior still needs a two-host rehearsal.</li>
+</ol>
+<h3>Cleanup</h3>
+<ol>
+<li>Restore both hosts' adapter settings, Wi-Fi/VPN state, and any temporary firewall rule.</li>
+<li>Run the wipe steps again and confirm <code>startup-config is not present</code>.</li>
+</ol>
+</section>
 <section class="slide-note"><div class="num"><span>Slide 1</span><span>00:00-01:00</span></div><h2>Basic Networking</h2><ul><li>Welcome both beginners and people who have configured networks. Ask who has used ping and who has used a switch console.</li><li>The aim is to explain an actual path using the equipment on the table. There is no subnet arithmetic quiz.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 2</span><span>01:00-02:00</span></div><h2>Start with the equipment</h2><ul><li>Show the TP-Link 5-port Gigabit desktop switch, GL.iNet AC1200 wireless travel router, and Catalyst 3560. The Catalyst has 48 copper 10/100 Fast Ethernet PoE ports and four SFP slots. No SFP modules are available. PoE supplies compatible endpoints; no powered endpoint is confirmed.</li><li>Two hosts and any Ethernet adapters must be confirmed. All Catalyst demo connections use copper Fast Ethernet ports. Check negotiated speed and duplex during rehearsal. AC1200 alone does not identify the GL.iNet model.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 3</span><span>02:00-04:00</span></div><h2>Hub, switch, router</h2><ul><li>There is no physical hub in this inventory. Describe the shared-medium behavior rather than claim to show it.</li><li>Switches also flood broadcasts and unknown unicasts within the VLAN. Avoid saying they always send to exactly one port.</li><li>The 3560 is a multilayer switch family; routing depends on software/features and configuration. Keep it in a switching role for this demo. The GL.iNet provides the router, access point, DHCP, NAT, and firewall example in router mode.</li></ul></section>
@@ -166,10 +216,10 @@
 <section class="slide-note"><div class="num"><span>Slide 26</span><span>38:00-42:00</span></div><h2>Generate traffic. Read the tables.</h2><ul><li>Generate traffic from B as well if needed. Point out the Ethernet interface, address, prefix/mask, and physical address.</li><li>The switch learns source addresses from incoming frames. A known destination selects an egress port; an unknown one is flooded to eligible other VLAN ports.</li><li>Entries may already exist. Do not clear the whole MAC table for the presentation. Ping uses ICMP, not TCP.</li><li>If anything fails, spend at most 60 seconds, then use screenshots or text output saved from rehearsal. Do not fabricate output.</li><li>Pause briefly for attendees to run plain ping 192.168.50.20 and arp -a in a simulated PC prompt. On the simulated switch, use enable followed by show mac address-table. Do not assume Windows ping flags work in Packet Tracer.</li><li>The minimum attendee checkpoint is a successful ping, a peer ARP entry, and a learned switch MAC. Simulation Mode with ARP/ICMP filters and Capture / Forward is an optional extension; keep the physical console projected.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 27</span><span>42:00-45:00</span></div><h2>One port can lead to many hosts</h2><ul><li>Disconnect B from the Catalyst first, then connect B to the unmanaged switch and add one uplink.</li><li>Wait for forwarding, ping, and inspect the MAC table. The source entry should move to the uplink after traffic arrives.</li><li>Never add a parallel cable to improvise a bundle. Unknown spanning-tree behavior is not a safe loop-prevention plan.</li><li>Attendees who are ready may add a second 2960 to represent the TP-Link forwarding role; it is not an exact model of the unmanaged device. Disconnect B’s original link first and use exactly one inter-switch link. Others should watch the hardware demo.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 28</span><span>45:00-48:00</span></div><h2>Unplug it. What changes?</h2><ul><li>Unplug B, not the presenter’s console or display connection. Link negotiation and spanning tree can delay recovery.</li><li>Timeouts or unreachable messages vary with the host and state. Avoid promising exact output.</li><li>Tie the link failure back to OSI layer 1, then continue directly to the travel-router demonstration at minute 48.</li><li>Attendees can disconnect and reconnect B’s simulated cable, then retry a plain ping. They do not need to change real laptop networking or connect to the physical lab. Stop this checkpoint at minute 48; save unfinished simulation work for later.</li></ul></section>
-<section class="slide-note"><div class="num"><span>Slide 29</span><span>48:00-53:00</span></div><h2>Demo 2: inspect the travel router</h2><ul><li>Finish the wired demo, disconnect the demo host from wired Ethernet, and join the GL.iNet Wi-Fi with automatic addressing. Rehearse router mode and local DHCP beforehand; keep the switch lab separate.</li><li>Inspect the actual DHCP server, assigned address, gateway, DNS settings, and route. Use observed values rather than a factory-default subnet. Router mode enables routing, DHCP, NAT, and firewall functions; access-point mode has a different role.</li><li>No upstream is needed to demonstrate local DHCP and the default route. A configured gateway does not prove internet access or demonstrate packet forwarding between networks. Only show a webpage if upstream access was separately rehearsed.</li><li>A rehearsed port-security demo or prepared Packet Tracer ARP/ping walkthrough may replace this five-minute slot. The earlier mobile hotspot is optional upstream hardware, not assumed part of this demo.</li></ul></section>
+<section class="slide-note"><div class="num"><span>Slide 29</span><span>48:00-53:00</span></div><h2>Demo 2: inspect the travel router</h2><ul><li>Finish the wired demo, disconnect the demo host from wired Ethernet, and join the GL.iNet Wi-Fi with automatic addressing. Rehearse router mode and local DHCP beforehand; keep the switch lab separate.</li><li>Inspect the actual DHCP server, assigned address, gateway, DNS settings, and route. Use observed values rather than a factory-default subnet. Router mode enables routing, DHCP, NAT, and firewall functions; access-point mode has a different role.</li><li>No upstream is needed to demonstrate local DHCP and the default route. A configured gateway does not prove internet access or demonstrate packet forwarding between networks. Only show a webpage if upstream access was separately rehearsed.</li><li>The switch DHCP demo from the console procedure, a rehearsed port-security demo, or a prepared Packet Tracer ARP/ping walkthrough may replace this five-minute slot. The earlier mobile hotspot is optional upstream hardware, not assumed part of this demo.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 30</span><span>53:00-56:00</span></div><h2>Local ping works. A website does not.</h2><ul><li>Ask for a hypothesis and a check, not just a command. Local ping narrows the issue without identifying the cause. Give the audience about a minute to propose checks before advancing.</li><li>Invite beginners to name a layer and experienced attendees to name a route, resolver, or service test.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 31</span><span>56:00-57:00</span></div><h2>Troubleshoot one part at a time</h2><ul><li>Firewalls and policy can block ICMP while allowing an application. Conversely, a ping reply does not prove HTTP works.</li><li>There is no universal answer order for every outage. This is a useful starting process for the example.</li></ul></section>
-<section class="slide-note"><div class="num"><span>Slide 32</span><span>57:00-60:00</span></div><h2>Questions</h2><ul><li>Protect the question slot. Optional appendix slides are available for questions, not extra required lecture time.</li><li>Afterward restore host addressing, Wi-Fi/VPN, scoped firewall rules, and original switch port settings. Verify restoration.</li></ul></section>
+<section class="slide-note"><div class="num"><span>Slide 32</span><span>57:00-60:00</span></div><h2>Questions</h2><ul><li>Protect the question slot. Optional appendix slides are available for questions, not extra required lecture time.</li><li>Afterward restore host addressing, Wi-Fi/VPN, scoped firewall rules, and original switch port settings. Wipe the switch using the console procedure and verify restoration.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 33</span><span>Optional</span></div><h2>Port security</h2><ul><li>This replaces minutes 48-53 only after rehearsal. Use console access and an unused host-facing lab port, not the uplink or an EtherChannel member.</li><li>Record the original configuration and enter the actual interface configuration context before these commands. Generate A traffic to learn its source, then swap in B before the secure address ages out.</li><li>Inspect show port-security interface with the actual interface name. Restrict should leave the port up while dropping unauthorized source traffic and recording violations.</li><li>For a previously unsecured port, no switchport port-security disables the feature. Restore the full original port configuration, verify ordinary traffic, and do not save temporary demo settings. See demos/README.md for setup and rollback.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 34</span><span>Optional</span></div><h2>EtherChannel</h2><ul><li>Two 100 Mb/s members do not normally make one flow run at 200 Mb/s. Hashing and platform capabilities determine distribution.</li><li>The TP-Link and GL.iNet are not confirmed compatible aggregation peers. Use a prepared Packet Tracer topology with two compatible switches for an optional simulation, or keep this conceptual. Do not add parallel cables to the physical lab.</li></ul></section>
 <section class="slide-note"><div class="num"><span>Slide 35</span><span>Reference</span></div><h2>Sources and further reading</h2><ul><li>Source links require internet access; the deck, navigation, notes, logo, and diagrams are otherwise local.</li><li>Template: https://github.com/hacksu/HacKSU-Presentation-Template at commit 64f8d8e05d02bca1d09b2462683606781f6fa62a.</li></ul></section>
