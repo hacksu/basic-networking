@@ -2,12 +2,12 @@
   <header class="slide-header"><span class="tag">Transport</span><span class="timing">25:00-26:00</span><img src="static/HacKSU.png" alt="HacKSU"></header>
   <div class="slide-body">
     <h2 id="title-handshake">TCP: establish, acknowledge, recover</h2>
-    <table class="layer-table"><thead><tr><th>Connection setup</th><th>Direction</th><th>Purpose</th></tr></thead><tbody>
+    <div class="with-meme"><div class="stack"><table class="layer-table"><thead><tr><th>Connection setup</th><th>Direction</th><th>Purpose</th></tr></thead><tbody>
       <tr><td>SYN</td><td>Client → server</td><td>Start a connection; announce an initial sequence number</td></tr>
       <tr><td>SYN + ACK</td><td>Server → client</td><td>Acknowledge the client; announce the server’s sequence number</td></tr>
       <tr><td>ACK</td><td>Client → server</td><td>Acknowledge the server</td></tr>
     </tbody></table>
-    <ul><li>Sequence numbers identify positions in the byte stream.</li><li>Acknowledgments and retransmission let TCP recover from loss.</li><li>A connection uses both IP addresses and both transport ports.</li></ul>
+    <ul><li>Sequence numbers identify positions in the byte stream.</li><li>Acknowledgments and retransmission let TCP recover from loss.</li><li>A connection uses both IP addresses and both transport ports.</li></ul></div><figure class="meme"><img src="static/img/meme-tcp-reset.jpg" alt="Meme: TCP handshake. A hand reaches out labeled SYN; a black cat turns away labeled RESET." loading="lazy"></figure></div>
     <div class="info-bar">TCP does not encrypt traffic. A successful handshake does not prove an application request will succeed.</div>
   </div>
 </section>

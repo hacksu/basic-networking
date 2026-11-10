@@ -286,6 +286,21 @@ a { color: #a0e8c8; text-underline-offset: 4px; }
 .photo img { display: block; width: 100%; height: clamp(100px, 22vh, 240px); object-fit: contain; background: #0a1520; }
 .photo figcaption { padding: 4px 10px; font-size: 0.5em; color: #b6c8d2; border-bottom: 1px solid var(--border); }
 .photo figcaption a { color: #b6c8d2; }
+.meme { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; }
+.meme img { display: block; height: clamp(90px, 20vh, 220px); width: auto; max-width: 100%; border: 1px solid var(--border); }
+.meme figcaption { font-size: 0.5em; }
+.title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.title-row .meme img { height: clamp(90px, 34vh, 340px); }
+.with-meme { display: flex; gap: 12px; flex: 1; min-height: 0; }
+.with-meme .three-col { flex: 1; }
+.with-meme > ul { flex: 1; }
+.with-meme > .stack { flex: 1; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.stack + .meme img { height: clamp(120px, 40vh, 380px); }
+.network-path + .meme img { height: clamp(110px, 25vh, 260px); }
+.with-meme > ul + .meme img { height: clamp(110px, 28vh, 280px); }
+.with-meme .meme img { height: clamp(140px, 48vh, 460px); }
+@media (max-width: 900px) { .with-meme { flex-direction: column; flex: none; } .with-meme .three-col { flex: none; } .with-meme .meme img { height: 30vh; } }
+.meme figcaption a { color: #b6c8d2; }
 
 @media (max-width: 1000px) {
   html { font-size: 20px; }
