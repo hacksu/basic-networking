@@ -291,6 +291,7 @@ a { color: #a0e8c8; text-underline-offset: 4px; }
 .meme figcaption { font-size: 0.5em; }
 .title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .title-row .meme img { height: clamp(90px, 34vh, 340px); }
+.title-row .meme.big img { height: clamp(140px, 60vh, 640px); }
 .with-meme { display: flex; gap: 12px; flex: 1; min-height: 0; }
 .with-meme .three-col { flex: 1; }
 .with-meme > ul { flex: 1; }
