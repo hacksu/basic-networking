@@ -21,9 +21,9 @@ Watching or sharing a screen with another attendee is fine if Packet Tracer is n
 - [Completed example](packet-tracer/networking-completed.pkt): the same topology, with `192.168.50.10/24` and
   `192.168.50.20/24`. Gateway and DNS are unset. No ping or other simulation traffic has been generated.
 
-**Status: draft, pending an in-app test.** Both files pass authenticated decoding, byte-identical re-encoding,
-and checks for device models, power, cabling, and PC IPv4 settings. They have not been opened or simulated in
-Packet Tracer. Menu labels, loading compatibility, and runtime behavior still need checking.
+**Status: tested in Packet Tracer 8.2.2 on 2026-11-10.** The activity opened, the switch booted with
+`FastEthernet0/1` and `FastEthernet0/2` up, and the PC0-to-PC1 ping worked. Other Packet Tracer versions and
+Simulation Mode have not been checked.
 
 The files use an 8.1-format seed shipped with the installed Packet Tracer 8.2.2 samples, plus PC definitions from
 its bundled samples. They were authored offline with

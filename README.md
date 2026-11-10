@@ -12,8 +12,8 @@ The running question: **What happens when my laptop sends data to another comput
 - [Slide outline](slides/outline.md): slide content, speaker prompts, and demo transitions.
 - [Demo runbook](demos/README.md): equipment, setup, commands, expected observations, and fallbacks.
 - [Packet Tracer companion lab](labs/packet-tracer.md): attendee setup and checkpoints alongside the physical demo.
-- Draft Packet Tracer files: [starter](labs/packet-tracer/networking-starter.pkt) and
-  [completed example](labs/packet-tracer/networking-completed.pkt). Structure checked; in-app testing is pending.
+- Packet Tracer files: [starter](labs/packet-tracer/networking-starter.pkt) and
+  [completed example](labs/packet-tracer/networking-completed.pkt). Opened and pinged in Packet Tracer 8.2.2.
 - The deck includes linked references and matching speaker notes with the full run of show.
 
 ## Setup and presenting
@@ -37,7 +37,7 @@ rehearsed port security; appendices do not add time to the session.
 The presenter uses actual hardware. Attendees can follow the local-network demo in Packet Tracer or watch/share
 a screen. Ask them to install, sign in, download the starter, and configure its PC addresses before the session.
 The companion guide includes manual construction steps and a test checklist. The supplied files were generated
-offline and still need opening, ping, and simulation checks in Packet Tracer before the workshop.
+offline and tested in Packet Tracer 8.2.2; Simulation Mode has not been checked.
 
 Explain the concepts first, then move into one continuous hands-on block:
 
