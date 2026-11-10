@@ -282,6 +282,10 @@ a { color: #a0e8c8; text-underline-offset: 4px; }
 .packet-band span { display: flex; align-items: center; justify-content: center; padding: 14px 20px; border: 1px solid #628579; text-align: center; }
 .packet-band .packet-payload { flex: 1; background: var(--bg2); }
 .packet-band span + span { border-left: 0; }
+.photo { margin: -24px -24px 18px; }
+.photo img { display: block; width: 100%; height: clamp(100px, 22vh, 240px); object-fit: contain; background: #0a1520; }
+.photo figcaption { padding: 4px 10px; font-size: 0.5em; color: #b6c8d2; border-bottom: 1px solid var(--border); }
+.photo figcaption a { color: #b6c8d2; }
 
 @media (max-width: 1000px) {
   html { font-size: 20px; }
